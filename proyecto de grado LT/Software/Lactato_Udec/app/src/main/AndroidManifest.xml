@@ -32,6 +32,10 @@
             android:name=".seccion_iniciada_student_mode__activity"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".definir_datos_deentrada_activity"
+            android:exported="false">
+        </activity>
     </application>
 
 </manifest>

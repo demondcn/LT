@@ -11,4 +11,23 @@
 	<string name="carrera_en_pista_string">Carrera En Pista</string>
 	<string name="banda_sin_fin_string">Banda Sin Fin</string>
 	<string name="__definir_datos__string">Definir Datos?</string>
+	<string name="llena_tus_datos_correspondientes_string">Llena tus datos correspondientes</string>
+	<string name="tu_genero_string">Tu genero</string>
+	<string name="tu_edad__string">Tu Edad:</string>
+	<string name="tu_peso__string">Tu Peso:</string>
+	<string name="tu_temperatura__string">Tu Temperatura:</string>
+	<string name="tu_etapa__string">Tu Etapa:</string>
+	<string name="deporte_o_evento__string">Deporte o Evento:</string>
+	<string name="kg__string">kg.</string>
+	<string name="tu_nombre_y_apellido__string">Tu Nombre y Apellido:</string>
+	<string name="guardar_string">Guardar</string>
+	<string name="prepcomp_string">Prepcomp</string>
+	<string name="pelotas_string">Pelotas</string>
+	<string name="combate_string">Combate</string>
+	<string name="veloc___fza_rap___anaerobico_string">Veloc., Fza rap., Anaerobico</string>
+	<string name="prep_string">Prep</string>
+	<string name="resistencia_string">Resistencia</string>
+	<string name="resistencia_ek1_string">Resistencia</string>
+	<string name="resistencia_ek2_string">Resistencia</string>
+	<string name="comp_string">Comp</string>
 </resources>

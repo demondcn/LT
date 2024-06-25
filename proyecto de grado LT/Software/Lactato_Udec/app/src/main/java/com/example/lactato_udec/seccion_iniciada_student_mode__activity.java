@@ -66,14 +66,14 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 		__definir_datos_.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, MainActivity.class);
+				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, definir_datos_deentrada_activity.class);
 				startActivity(intent);
 			}
 		});
 		image_12.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, MainActivity.class);
+				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, definir_datos_deentrada_activity.class);
 				startActivity(intent);
 			}
 		});
