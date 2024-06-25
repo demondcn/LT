@@ -70,6 +70,13 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
+		image_12.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, MainActivity.class);
+				startActivity(intent);
+			}
+		});
 
 
 	}
