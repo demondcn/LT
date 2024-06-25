@@ -20,7 +20,7 @@ public class LoginActivity2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login2);
@@ -29,7 +29,7 @@ public class LoginActivity2 extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        //
+
         binding = ActivityLogin2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -47,7 +47,7 @@ public class LoginActivity2 extends AppCompatActivity {
                         Boolean checkCredentials = databaseHelper.CheckUserPassword(email, password);
                         if(checkCredentials==true){
                             Toast.makeText(LoginActivity2.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), seccion_iniciada_student_mode__activity.class);
                             startActivity(intent);
                         }else {
                             Toast.makeText(LoginActivity2.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();

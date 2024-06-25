@@ -27,8 +27,10 @@
         <activity
             android:name=".MainActivity"
             android:exported="false">
-
-
+        </activity>
+        <activity
+            android:name=".seccion_iniciada_student_mode__activity"
+            android:exported="false">
         </activity>
     </application>
 
