@@ -36,6 +36,10 @@
             android:name=".definir_datos_deentrada_activity"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".prueba_de_carrera_de_pista_activity"
+            android:exported="false">
+        </activity>
     </application>
 
 </manifest>

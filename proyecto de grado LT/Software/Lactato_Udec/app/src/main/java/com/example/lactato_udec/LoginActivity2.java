@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
+import android.content.SharedPreferences;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -41,17 +41,28 @@ public class LoginActivity2 extends AppCompatActivity {
                 String email = binding.LoginEmail.getText().toString();
                 String password = binding.LoginPassword.getText().toString();
 
-                if(email.equals("") || password.equals(""))
+                if (email.equals("") || password.equals("")) {
                     Toast.makeText(LoginActivity2.this, "Todos los campos son requeridos", Toast.LENGTH_SHORT).show();
-                    else{
-                        Boolean checkCredentials = databaseHelper.CheckUserPassword(email, password);
-                        if(checkCredentials==true){
-                            Toast.makeText(LoginActivity2.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), seccion_iniciada_student_mode__activity.class);
-                            startActivity(intent);
-                        }else {
-                            Toast.makeText(LoginActivity2.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
-                     }
+                } else {
+                    Boolean checkCredentials = databaseHelper.CheckUserPassword(email, password);
+                    if (checkCredentials) {
+                        // Obtener userId después de la autenticación exitosa
+                        int userId = databaseHelper.getUserIdByEmail(email);
+
+                        // Guardar el ID del usuario en SharedPreferences
+                        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("user_id", userId);
+                        editor.apply();
+
+                        // Iniciar la actividad seccion_iniciada_student_mode__activity y pasar el ID del usuario
+                        Intent intent = new Intent(getApplicationContext(), seccion_iniciada_student_mode__activity.class);
+                        intent.putExtra("user_id", userId);
+                        startActivity(intent);
+                        finish(); // Finalizar LoginActivity2 para que no se pueda volver atrás con el botón de retroceso
+                    } else {
+                        Toast.makeText(LoginActivity2.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

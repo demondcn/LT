@@ -1,11 +1,17 @@
 package com.example.lactato_udec;
+import android.content.Intent;
 import android.os.Bundle;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import java.util.Calendar;
 public class definir_datos_deentrada_activity extends AppCompatActivity {
+	private boolean seleccionMujer;
+	private boolean seleccionHombre;
 	private boolean colorOriginalPrepSelect = true;
 	private boolean colorOriginalPrecomp = true;
 	private boolean colorOriginalComp = true;
@@ -63,14 +69,28 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 	private boolean isMitad1Selected = false;
 	private boolean isMitad2Selected = false;
 
+	private int selectedEtapa = 0;
+	private int selectedDeporteOEvento = 0;
 
+	DatabaseHelper databaseHelper;
+	private int userId;
+	private String email;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.definir_datos_deentrada);
-
-
+		databaseHelper = new DatabaseHelper(this);
+		// Obtener el userId y el email del intent
+		Intent intent = getIntent();
+		if (intent != null && intent.hasExtra("userId")) {
+			userId = intent.getIntExtra("userId", -1);
+		} else {
+			// Manejar el caso cuando no se proporciona userId
+			Toast.makeText(this, "No se proporcionó el ID de usuario.", Toast.LENGTH_SHORT).show();
+			finish(); // Finalizar la actividad si no hay userId válido
+		}
+		email = intent.getStringExtra("email");
 		_bg__definir_datos_deentrada_ek2 = (View) findViewById(R.id._bg__definir_datos_deentrada_ek2);
 		llena_tus_datos_correspondientes = (TextView) findViewById(R.id.llena_tus_datos_correspondientes);
 		__ya_definiste_tus_datos_ = (TextView) findViewById(R.id.__ya_definiste_tus_datos_);
@@ -123,6 +143,9 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 			public void onClick(View v) {
 				if (!isMitad1Selected) {
 					mitad1.setImageResource(R.drawable.mseleccion); // Cambia la imagen de mitad1 seleccionada
+					seleccionHombre = true;
+					seleccionMujer = false;
+
 					if (isMitad2Selected) {
 						mitad2.setImageResource(R.drawable.mitad2); // Restaura la imagen original de mitad2
 						isMitad2Selected = false;
@@ -131,7 +154,10 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 				} else {
 					mitad1.setImageResource(R.drawable.mitad1); // Restaura la imagen original de mitad1
 					isMitad1Selected = false;
+					seleccionHombre = false;
 				}
+				//String gender = seleccionHombre ? "Hombre" : "Mujer";
+
 			}
 		});
 
@@ -140,6 +166,8 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 			public void onClick(View v) {
 				if (!isMitad2Selected) {
 					mitad2.setImageResource(R.drawable.fseleccion); // Cambia la imagen de mitad2 seleccionada
+					seleccionMujer = true;
+					seleccionHombre = false;
 					if (isMitad1Selected) {
 						mitad1.setImageResource(R.drawable.mitad1); // Restaura la imagen original de mitad1
 						isMitad1Selected = false;
@@ -148,7 +176,10 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 				} else {
 					mitad2.setImageResource(R.drawable.mitad2); // Restaura la imagen original de mitad2
 					isMitad2Selected = false;
+					seleccionMujer = false;
 				}
+				//String gender = seleccionMujer ? "Mujer" : "Hombre";
+
 			}
 		});
 
@@ -156,6 +187,7 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 		findViewById(R.id.rectangle_1_ek5).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				selectedEtapa = 1;
 				manageButtonSelection(v, lastSelectedButtonEtapa, colorOriginalPrepSelect, R.drawable.rectangle_1_ek5_shape, R.drawable.rectangle_1_ek3_shapered);
 				lastSelectedButtonEtapa = v;
 				colorOriginalPrepSelect = !colorOriginalPrepSelect;
@@ -165,6 +197,7 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 		findViewById(R.id.rectangle_1_ek1).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				selectedEtapa = 2;
 				manageButtonSelection(v, lastSelectedButtonEtapa, colorOriginalPrecomp, R.drawable.rectangle_1_ek1_shape, R.drawable.rectangle_1_ek3_shapered);
 				lastSelectedButtonEtapa = v;
 				colorOriginalPrecomp = !colorOriginalPrecomp;
@@ -174,6 +207,7 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 		findViewById(R.id.rectangle_1_ek9).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				selectedEtapa = 3;
 				manageButtonSelection(v, lastSelectedButtonEtapa, colorOriginalComp, R.drawable.rectangle_1_ek9_shape, R.drawable.rectangle_1_ek3_shapered);
 				lastSelectedButtonEtapa = v;
 				colorOriginalComp = !colorOriginalComp;
@@ -185,6 +219,7 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 		findViewById(R.id.rectangle_1_ek8).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				selectedDeporteOEvento = 1;
 				manageButtonSelection(v, lastSelectedButtonDeporteOEvento, colorOriginalResistencia, R.drawable.rectangle_1_ek8_shape, R.drawable.rectangle_1_ek3_shapered);
 				lastSelectedButtonDeporteOEvento = v;
 				colorOriginalResistencia = !colorOriginalResistencia;
@@ -194,6 +229,7 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 		findViewById(R.id.rectangle_1_ek2).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				selectedDeporteOEvento = 2;
 				manageButtonSelection(v, lastSelectedButtonDeporteOEvento, colorOriginalPelotas, R.drawable.rectangle_1_ek2_shape, R.drawable.rectangle_1_ek3_shapered);
 				lastSelectedButtonDeporteOEvento = v;
 				colorOriginalPelotas = !colorOriginalPelotas;
@@ -203,6 +239,7 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 		findViewById(R.id.rectangle_1_ek3).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				selectedDeporteOEvento = 3;
 				manageButtonSelection(v, lastSelectedButtonDeporteOEvento, colorOriginalCombateSelect, R.drawable.rectangle_1_ek3_shape, R.drawable.rectangle_1_ek3_shapered);
 				lastSelectedButtonDeporteOEvento = v;
 				colorOriginalCombateSelect = !colorOriginalCombateSelect;
@@ -212,12 +249,51 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 		findViewById(R.id.rectangle_1_ek4).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				selectedDeporteOEvento = 4;
 				manageButtonSelection(v, lastSelectedButtonDeporteOEvento, colorOriginalVFA, R.drawable.rectangle_1_ek4_shape, R.drawable.rectangle_1_ek3_shapered);
 				lastSelectedButtonDeporteOEvento = v;
 				colorOriginalVFA = !colorOriginalVFA;
 			}
 		});
+		guardar.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				saveUserData();
+			}
+		});
 	}
+
+	private void saveUserData() {
+		Calendar calendario = Calendar.getInstance();
+		int dia = calendario.get(Calendar.DAY_OF_MONTH);
+		int mes = calendario.get(Calendar.MONTH) + 1; // El mes se cuenta desde 0
+		int anio = calendario.get(Calendar.YEAR);
+
+		// Mostrar la fecha en un Toast
+		String fecha = dia + "/" + mes + "/" + anio;
+		String name = editTextName.getText().toString();
+		String ageStr = editTextAge.getText().toString();
+		String weightStr = editTextWeight.getText().toString();
+		String temperatureStr = editTextTemperature.getText().toString();
+		String gender = seleccionHombre ? "Hombre" : seleccionMujer ? "Mujer":"error";
+		if (name.isEmpty() || ageStr.isEmpty() || weightStr.isEmpty() || temperatureStr.isEmpty() || (!isMitad1Selected && !isMitad2Selected) || selectedEtapa == 0 || selectedDeporteOEvento == 0) {
+			Toast.makeText(this, "Por favor completa todos los campos y selecciones.", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		int age = Integer.parseInt(ageStr);
+		int weight = Integer.parseInt(weightStr);
+		int temperature = Integer.parseInt(temperatureStr);
+		// Guarda los datos en la base de datos
+		long id = databaseHelper.insertUserData(userId, fecha, name, age, weight, temperature, gender, selectedEtapa, selectedDeporteOEvento);
+
+		if (id > 0) {
+			Toast.makeText(this, "Datos guardados exitosamente el id es" + userId, Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(this, "Error al guardar los datos el id es:" + userId, Toast.LENGTH_SHORT).show();
+		}
+	}
+
 
 	private void manageButtonSelection(View clickedView, View lastSelectedView, boolean colorOriginal, int backgroundOriginal, int backgroundNoOriginal) {
 		// Deseleccionar el último botón seleccionado
@@ -235,6 +311,9 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 		} else {
 			view.setBackgroundResource(backgroundOriginal);
 		}
+	}
+	public void ProbadorResultados(int s){
+		Toast.makeText(this, "el resultado es " + s, Toast.LENGTH_SHORT).show();
 	}
 
 }
