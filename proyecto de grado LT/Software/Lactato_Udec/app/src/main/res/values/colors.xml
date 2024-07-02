@@ -20,6 +20,7 @@
     <color name="_bg__prueba_de_carrera_de_pista_ek2_color">#FFFFFF</color>
 	<color name="test_para_carrera_a_pie_color">#C8FF2C</color>
 	<color name="rectangle_3_color">#C8FF2B</color>
+    <color name="rectangle_4_color">#97E101</color>
 	<color name="guardar_color">#000000</color>
     <color name="lavender">#0867EB</color>
 </resources>
