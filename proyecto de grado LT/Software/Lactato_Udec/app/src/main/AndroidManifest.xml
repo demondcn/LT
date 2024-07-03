@@ -40,6 +40,30 @@
             android:name=".prueba_de_carrera_de_pista_activity"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".prueba_de_bandasinfin_activity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".prueba_de_canotaje_activity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".prueba_de_ciclismo_activity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".prueba_de_ciclo_activity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".prueba_de_natacion_activity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".prueba_de_subacuatica_activity"
+            android:exported="false">
+        </activity>
     </application>
 
 </manifest>

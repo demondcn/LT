@@ -25,12 +25,12 @@
 
 				<ImageView
 					android:id="@+id/image_6"
-					android:layout_width="476dp"
-					android:layout_height="844dp"
+					android:layout_width="440dp"
+					android:layout_height="870dp"
 					android:layout_marginStart="-20dp"
 					android:layout_marginTop="0dp"
 					android:contentDescription="image_6"
-					android:src="@drawable/image_carrerapista" />
+					android:src="@drawable/image_bandasinfin" />
 
 
 				<RelativeLayout android:id="@+id/texto_zona"
@@ -50,7 +50,7 @@
 						android:layout_marginTop="0dp"
 						android:layout_width="416dp"
 						android:layout_height="75dp"
-						android:text="@string/test_para_carrera_a_pie_string"
+						android:text="Text para Banda sin Fin"
 						 />
 
 					<TextView android:id="@+id/etapa_1_aerobica"
