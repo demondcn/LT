@@ -97,5 +97,69 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         MyDatabase.close();
         return exists;
     }
+    public String getUserNameById(int userId) {
+        SQLiteDatabase MyDatabase = this.getReadableDatabase();
+        String userName = "";
+
+        Cursor cursor = MyDatabase.rawQuery("SELECT name FROM userdata WHERE user_id = ?", new String[]{String.valueOf(userId)});
+        if (cursor.moveToFirst()) {
+            userName = cursor.getString(0);
+        }
+        cursor.close();
+        MyDatabase.close();
+
+        return userName;
+    }
+    public String getDatos(int userId, int n) {
+        SQLiteDatabase MyDatabase = this.getReadableDatabase();
+        String fieldName = "";
+        String result = "";
+
+        switch (n) {
+            case 1:
+                fieldName = "name";
+                break;
+            case 2:
+                fieldName = "fecha";
+                break;
+            case 3:
+                fieldName = "age";
+                break;
+            case 4:
+                fieldName = "weight";
+                break;
+            case 5:
+                fieldName = "temperature";
+                break;
+            case 6:
+                fieldName = "gender";
+                break;
+            case 7:
+                fieldName = "period";
+                break;
+            case 8:
+                fieldName = "event";
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid value for n: " + n);
+        }
+
+        // Construir la consulta de forma segura
+        String query = String.format("SELECT %s FROM userdata WHERE user_id = ?", fieldName);
+
+        Cursor cursor = MyDatabase.rawQuery(query, new String[]{String.valueOf(userId)});
+        if (cursor.moveToFirst()) {
+            result = cursor.getString(0);
+        }
+
+        cursor.close();
+        MyDatabase.close();
+
+        return result;
+    }
+
+
+
+
 }
 

@@ -128,6 +128,8 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_carrera_de_pista_activity.class);
+				//envio del id
+				intent.putExtra("userId", userId);
 				startActivity(intent);
 			}
 		});
