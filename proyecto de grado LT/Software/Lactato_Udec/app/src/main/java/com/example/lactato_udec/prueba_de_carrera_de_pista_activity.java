@@ -1,12 +1,18 @@
 
 package com.example.lactato_udec;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
 import java.text.DecimalFormat;
+
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -299,12 +305,12 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 		canvas.drawText("SEG", startX + cellWidth * 3, startY, paint);
 		canvas.drawText("LACTATO", startX + cellWidth * 4, startY, paint);
 		canvas.drawText("FCLPM", startX + cellWidth * 5, startY, paint);
-		canvas.drawText("VELOCIDAD", startX + cellWidth * 6, startY, paint);
+		canvas.drawText("VELOC.M/S", startX + cellWidth * 6, startY, paint);
 
 		// Dibujar las líneas de la tabla
 
 		//paint.setStyle(Paint.Style.STROKE);
-		int numRows = 7; // Número de filas, ajusta según tus datos
+		int numRows = 5; // Número de filas, ajusta según tus datos
 		for (int i = 0; i <= numRows; i++) {
 			canvas.drawLine(startX, startY + i * cellHeight, startX + cellWidth * 7, startY + i * cellHeight, paint);
 		}
@@ -315,7 +321,8 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 		// Añadir datos a la tabla
 		for (int i = 0; i < numRows; i++) {
 			// Ajustando las posiciones para cada dato de la fila
-			canvas.drawText(String.valueOf(i + 1), startX, startY + (i + 1) * cellHeight, paint);
+			String txtOrdenEtapa = i < 4 ? "Aerovica" : "Anaerovica";
+			canvas.drawText(String.valueOf(txtOrdenEtapa), startX, startY + (i + 1) * cellHeight, paint);
 			canvas.drawText(String.valueOf(EtapasIniciales[i][0]), startX + cellWidth, startY + (i + 1) * cellHeight, paint);
 			canvas.drawText(String.valueOf(EtapasIniciales[i][1]), startX + cellWidth * 2, startY + (i + 1) * cellHeight, paint);
 			canvas.drawText(String.valueOf(EtapasIniciales[i][2]), startX + cellWidth * 3, startY + (i + 1) * cellHeight, paint);
@@ -430,18 +437,147 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 		// Finaliza la página
 		pdfDocument.finishPage(page);
 
-		// Guarda el PDF en el almacenamiento externo
-		File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "test_lactato.pdf");
-		try {
-			pdfDocument.writeTo(new FileOutputStream(file));
-			Toast.makeText(this, "PDF generado con éxito", Toast.LENGTH_SHORT).show();
-		} catch (IOException e) {
-			e.printStackTrace();
-			Toast.makeText(this, "Error al generar el PDF", Toast.LENGTH_SHORT).show();
+
+		pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 2).create(); // Tamaño A4
+		page = pdfDocument.startPage(pageInfo);
+		canvas = page.getCanvas();
+
+		// Dibujar la gráfica
+		// Configurar paint para la gráfica
+		paint.setColor(Color.BLUE);
+		paint.setStrokeWidth(2);
+		paint.setStyle(Paint.Style.STROKE);
+
+		// Coordenadas para la gráfica
+		int graphStartX = 50;
+		int graphStartY = 200;
+		int graphWidth = 500;
+		int graphHeight = 400;
+
+		// Dibujar el marco de la gráfica
+		canvas.drawRect(graphStartX, graphStartY, graphStartX + graphWidth, graphStartY + graphHeight, paint);
+
+		// Dibujar ejes X e Y
+		paint.setColor(Color.BLACK);
+		canvas.drawLine(graphStartX, graphStartY + graphHeight, graphStartX + graphWidth, graphStartY + graphHeight, paint); // Eje X
+		canvas.drawLine(graphStartX, graphStartY, graphStartX, graphStartY + graphHeight, paint); // Eje Y
+
+		// Suponiendo que tienes datos de ejemplo en arrays para la gráfica
+		float[] yValues = new float[5]; // Crear un array de floats con longitud 5
+		float[] xValues = new float[5]; // Ejemplo de valores X
+
+		for (int i = 0; i < 5; i++) {
+			int distancia = EtapasIniciales[i][0];
+			int minutos = EtapasIniciales[i][1];
+			int segundos = EtapasIniciales[i][2];
+			double velocidad = (double) distancia / (minutos * 60 + segundos);
+
+			yValues[i] = (float) velocidad; // Guardar potencia1 en el array yValues
+		}
+		//
+		for (int i = 0; i < 5; i++) {
+			int lac = EtapasIniciales[i][3];
+			xValues[i] = (float) lac; // Guardar potencia1 en el array yValues
 		}
 
-		// Cierra el documento
+		for (int i = 0; i < xValues.length - 1; i++) {
+			// Encontrar el índice del mínimo elemento restante en xValues
+			int minIndex = i;
+			for (int j = i + 1; j < xValues.length; j++) {
+				if (xValues[j] < xValues[minIndex]) {
+					minIndex = j;
+				}
+			}
+			// Intercambiar elementos en xValues
+			float tempX = xValues[minIndex];
+			xValues[minIndex] = xValues[i];
+			xValues[i] = tempX;
+
+			// Intercambiar elementos correspondientes en yValues para mantener el paralelismo
+			float tempY = yValues[minIndex];
+			yValues[minIndex] = yValues[i];
+			yValues[i] = tempY;
+		}
+
+
+		float xMax = xValues[0]; // Inicialmente, xMax se establece como el primer valor de xValues
+		for (int i = 1; i < xValues.length; i++) {
+			if (xValues[i] > xMax) {
+				xMax = xValues[i]; // Actualizar xMax si encontramos un valor mayor en xValues
+			}
+		}
+
+		// Calcular yMax (máximo valor de Y)
+		float yMax = yValues[0]; // Inicialmente, yMax se establece como el primer valor de yValues
+		for (int i = 1; i < yValues.length; i++) {
+			if (yValues[i] > yMax) {
+				yMax = yValues[i]; // Actualizar yMax si encontramos un valor mayor en yValues
+			}
+		}
+
+		// Escalar los valores de los datos para ajustarlos al tamaño de la gráfica
+		float xScale = graphWidth / xMax;
+		float yScale = graphHeight / yMax;
+
+		// Dibujar los números en el eje X
+		paint.setTextSize(12);
+		paint.setTextAlign(Paint.Align.CENTER);
+		for (int i = 0; i <= xMax; i++) {
+			float xPos = graphStartX + i * xScale;
+			canvas.drawText(String.valueOf(i), xPos, graphStartY + graphHeight + 20, paint);
+			canvas.drawLine(xPos, graphStartY + graphHeight, xPos, graphStartY + graphHeight - 10, paint); // Marcas en el eje X
+		}
+
+		// Dibujar los números en el eje Y
+		paint.setTextAlign(Paint.Align.RIGHT);
+		for (int i = 0; i <= yMax; i += 5) { // Ajusta el incremento según tus necesidades
+			float yPos = graphStartY + graphHeight - i * yScale;
+			canvas.drawText(String.valueOf(i), graphStartX - 10, yPos, paint);
+			canvas.drawLine(graphStartX, yPos, graphStartX + 10, yPos, paint); // Marcas en el eje Y
+		}
+
+		// Dibujar la línea suavizada
+		Path path = new Path();
+		path.moveTo(graphStartX + xValues[0] * xScale, graphStartY + graphHeight - yValues[0] * yScale);
+
+		for (int i = 1; i < xValues.length; i++) {
+			path.lineTo(graphStartX + xValues[i] * xScale, graphStartY + graphHeight - yValues[i] * yScale);
+		}
+
+		canvas.drawPath(path, paint);
+
+		// Dibujar los puntos de la gráfica
+		paint.setStyle(Paint.Style.FILL);
+		for (int i = 0; i < xValues.length; i++) {
+			canvas.drawCircle(graphStartX + xValues[i] * xScale, graphStartY + graphHeight - yValues[i] * yScale, 5, paint);
+		}
+		// Finaliza la página
+		pdfDocument.finishPage(page);
+
+		// Guarda el PDF en el almacenamiento externo
+		String fileName = "Informe_Lactato_CarreraDePista.pdf";
+		File filePath = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName);
+		try {
+			pdfDocument.writeTo(new FileOutputStream(filePath));
+		} catch (IOException e) {
+			e.printStackTrace();
+			Toast.makeText(this, "Error al guardar el PDF: " + e.getMessage(), Toast.LENGTH_LONG).show();
+			return;
+		}
+
 		pdfDocument.close();
+		Toast.makeText(this, "PDF guardado en " + filePath.getAbsolutePath(), Toast.LENGTH_LONG).show();
+
+		// Mostrar el PDF automáticamente
+		Uri pdfUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", filePath);
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setDataAndType(pdfUri, "application/pdf");
+		intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+		try {
+			startActivity(intent);
+		} catch (ActivityNotFoundException e) {
+			Toast.makeText(this, "No hay aplicación para ver PDF instalada", Toast.LENGTH_LONG).show();
+		}
 	}
 
 }

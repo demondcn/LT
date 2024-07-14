@@ -20,7 +20,7 @@
 				<View   android:id="@+id/_bg__prueba_de_carrera_de_pista_ek2"
 					 android:layout_marginStart="0dp"
 					android:layout_marginTop="0dp"
-					android:layout_width="390dp"
+					android:layout_width="440dp"
 					android:layout_height="844dp" />
 
 				<ImageView
@@ -45,7 +45,7 @@
 						android:layout_gravity="center_horizontal|center"
 						android:gravity="center"
 						android:textSize="32sp"
-						android:textColor="@color/test_para_carrera_a_pie_color"
+						android:textColor="@color/nang"
 						android:layout_marginLeft="-5dp"
 						android:layout_marginTop="0dp"
 						android:layout_width="416dp"
@@ -59,7 +59,7 @@
 						android:layout_gravity="center_horizontal|center"
 						android:gravity="center"
 						android:textSize="40sp"
-						android:textColor="@color/test_para_carrera_a_pie_color"
+						android:textColor="@color/nang"
 						android:layout_marginLeft="-1dp"
 						android:layout_marginTop="41dp"
 						android:layout_width="413dp"
@@ -73,7 +73,7 @@
 						android:layout_gravity="center_horizontal|center"
 						android:gravity="center"
 						android:textSize="24sp"
-						android:textColor="@color/test_para_carrera_a_pie_color"
+						android:textColor="@color/nang"
 						android:layout_marginLeft="3dp"
 						android:layout_marginTop="94dp"
 						android:layout_width="405dp"
@@ -92,7 +92,7 @@
 					android:layout_marginTop="170dp"
 					android:fontFamily="Nunito"
 					android:text="Tipo De Superficie:"
-					android:textColor="@color/test_para_carrera_a_pie_color"
+					android:textColor="@color/nang"
 					android:textSize="40sp"
 					android:textStyle="bold" />
 				<RelativeLayout
@@ -108,7 +108,7 @@
 						android:layout_height="31.23dp"
 						android:layout_marginStart="0dp"
 						android:layout_marginTop="0dp"
-						android:background="@drawable/rectangle_2_shape" />
+						android:background="@drawable/rectangle_4_shape" />
 
 					<TextView
 						android:id="@+id/tartant"
@@ -117,7 +117,7 @@
 						android:layout_marginLeft="20dp"
 						android:layout_marginTop="4dp"
 						android:fontFamily="Nunito"
-						android:text="TARTAN"
+						android:text="20"
 						android:textColor="#000000"
 						android:textSize="18sp"
 						android:textStyle="bold" />
@@ -137,7 +137,7 @@
 						android:layout_height="31.23dp"
 						android:layout_marginStart="0dp"
 						android:layout_marginTop="0dp"
-						android:background="@drawable/rectangle_2_shape" />
+						android:background="@drawable/rectangle_4_shape" />
 
 					<TextView
 						android:id="@+id/ARCILLAt"
@@ -146,36 +146,7 @@
 						android:layout_marginLeft="20dp"
 						android:layout_marginTop="4dp"
 						android:fontFamily="Nunito"
-						android:text="ARCILLA"
-						android:textColor="#000000"
-						android:textSize="18sp"
-						android:textStyle="bold" />
-
-				</RelativeLayout>
-				<RelativeLayout
-					android:id="@+id/TipSuperficie3"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="269dp"
-					android:layout_marginTop="250dp">
-
-
-					<View
-						android:id="@+id/ASFALTO"
-						android:layout_width="115dp"
-						android:layout_height="31.23dp"
-						android:layout_marginStart="0dp"
-						android:layout_marginTop="0dp"
-						android:background="@drawable/rectangle_2_shape" />
-
-					<TextView
-						android:id="@+id/ASFALTOt"
-						android:layout_width="103dp"
-						android:layout_height="49dp"
-						android:layout_marginLeft="20dp"
-						android:layout_marginTop="4dp"
-						android:fontFamily="Nunito"
-						android:text="ASFALTO"
+						android:text="50"
 						android:textColor="#000000"
 						android:textSize="18sp"
 						android:textStyle="bold" />
@@ -187,7 +158,7 @@
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
 					android:layout_marginTop="600dp"
-					android:background="@drawable/lavender_border2"
+					android:background="@drawable/lavender_border3"
 
 					android:drawablePadding="8dp"
 					android:hint="FCLPM"
@@ -199,7 +170,7 @@
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
 					android:layout_marginTop="530dp"
-					android:background="@drawable/lavender_border2"
+					android:background="@drawable/lavender_border3"
 
 					android:drawablePadding="8dp"
 					android:hint="Lactato"
@@ -211,7 +182,7 @@
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
 					android:layout_marginTop="460dp"
-					android:background="@drawable/lavender_border2"
+					android:background="@drawable/lavender_border3"
 
 					android:drawablePadding="8dp"
 					android:hint="Segundos"
@@ -223,7 +194,7 @@
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
 					android:layout_marginTop="390dp"
-					android:background="@drawable/lavender_border2"
+					android:background="@drawable/lavender_border3"
 
 					android:drawablePadding="8dp"
 					android:hint="Minutos"
@@ -235,7 +206,7 @@
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
 					android:layout_marginTop="320dp"
-					android:background="@drawable/lavender_border2"
+					android:background="@drawable/lavender_border3"
 					android:drawablePadding="8dp"
 					android:hint="Distancia"
 					android:inputType="number"
@@ -251,7 +222,7 @@
 					>
 
 					<View   android:id="@+id/rectangle_1"
-						android:background="@drawable/rectangle_2_shape"
+						android:background="@drawable/rectangle_4_shape"
 						 android:layout_marginStart="51dp"
 						android:layout_marginTop="30dp"
 						android:layout_width="310dp"
@@ -275,7 +246,7 @@
 						android:layout_gravity="center_horizontal|center"
 						android:gravity="center"
 						android:textSize="18sp"
-						android:textColor="@color/rectangle_3_color"
+						android:textColor="@color/nang"
 						android:layout_marginLeft="-3dp"
 						android:layout_marginTop="-25dp"
 						android:layout_width="409dp"
@@ -288,7 +259,7 @@
 						android:textStyle="bold"
 						android:layout_gravity="center_horizontal|center"
 						android:gravity="center"
-						android:textColor="@color/test_para_carrera_a_pie_color"
+						android:textColor="@color/nang"
 						android:layout_marginLeft="9dp"
 						android:layout_marginTop="105dp"
 						android:layout_width="398dp"

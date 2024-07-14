@@ -82,6 +82,7 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_natacion_activity.class);
+				intent.putExtra("userId", userId);
 				startActivity(intent);
 			}
 		});
@@ -89,6 +90,7 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_subacuatica_activity.class);
+				intent.putExtra("userId", userId);
 				startActivity(intent);
 			}
 		});
@@ -97,6 +99,7 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_ciclismo_activity.class);
+				intent.putExtra("userId", userId);
 				startActivity(intent);
 			}
 		});
@@ -105,6 +108,7 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_canotaje_activity.class);
+				intent.putExtra("userId", userId);
 				startActivity(intent);
 			}
 		});
@@ -113,6 +117,7 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_bandasinfin_activity.class);
+				intent.putExtra("userId", userId);
 				startActivity(intent);
 			}
 		});
@@ -121,6 +126,7 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_ciclo_activity.class);
+				intent.putExtra("userId", userId);
 				startActivity(intent);
 			}
 		});
