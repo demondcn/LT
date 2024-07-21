@@ -44,7 +44,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowId;
     }
 
-
     public long insertDate(String email, String password){
         SQLiteDatabase MyDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

@@ -14,7 +14,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.lactato_udec.databinding.ActivityLogin2Binding;
 
 public class LoginActivity2 extends AppCompatActivity {
-
     ActivityLogin2Binding binding;
     DatabaseHelper databaseHelper;
 

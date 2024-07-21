@@ -93,7 +93,7 @@
 
 					android:drawablePadding="8dp"
 					android:hint="FCRPM"
-					android:inputType="number"
+					android:inputType="numberDecimal"
 					android:padding="8dp" />
 				<EditText
 					android:id="@+id/FCLPM"
@@ -105,7 +105,7 @@
 
 					android:drawablePadding="8dp"
 					android:hint="FCLPM"
-					android:inputType="number"
+					android:inputType="numberDecimal"
 					android:padding="8dp" />
 				<EditText
 					android:id="@+id/Lactato"
@@ -129,7 +129,7 @@
 
 					android:drawablePadding="8dp"
 					android:hint="Segundos"
-					android:inputType="number"
+					android:inputType="numberDecimal"
 					android:padding="8dp" />
 				<EditText
 					android:id="@+id/Minutos"
@@ -141,7 +141,7 @@
 
 					android:drawablePadding="8dp"
 					android:hint="Minutos"
-					android:inputType="number"
+					android:inputType="numberDecimal"
 					android:padding="8dp" />
 				<EditText
 					android:id="@+id/Distancia"
@@ -152,7 +152,7 @@
 					android:background="@drawable/lavender_border2"
 					android:drawablePadding="8dp"
 					android:hint="RES.PED.,KP."
-					android:inputType="number"
+					android:inputType="numberDecimal"
 					android:padding="8dp" />
 
 

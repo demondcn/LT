@@ -54,7 +54,7 @@ public class prueba_de_ciclo_activity extends AppCompatActivity {
 	private TextView guardar;
 	private TextView __ya_definiste_tus_datos_;
 	private TextView nota__el_calentamiento_no_puede_ser_de_mas_de_15_min__ni_incluyendo_piques;
-	int[][] EtapasIniciales = new int[7][7];
+	double[][] EtapasIniciales = new double[7][7];
 	private int n = 0;
 	private int m = 1;
 	private int selectedEtapa = 0;
@@ -151,19 +151,18 @@ public class prueba_de_ciclo_activity extends AppCompatActivity {
 
 			// Guardar datos
 			try {
-				EtapasIniciales[n][0] =  m < 6 ?Integer.parseInt(Distancia.getText().toString()): 0;
-				EtapasIniciales[n][1] =  m < 6 ?Integer.parseInt(Minutos.getText().toString()): 0;
-				EtapasIniciales[n][2] = Integer.parseInt(Segundos.getText().toString());
-				EtapasIniciales[n][3] = Integer.parseInt(Lactato.getText().toString());
-				EtapasIniciales[n][4] = m < 6 ? Integer.parseInt(FCLPM.getText().toString()) : 0;
-				EtapasIniciales[n][5] = m < 6 ? Integer.parseInt(FCRPM.getText().toString()) : 0;
+				EtapasIniciales[n][0] =  m < 6 ?Double.parseDouble(Distancia.getText().toString()): 0;
+				EtapasIniciales[n][1] =  m < 6 ?Double.parseDouble(Minutos.getText().toString()): 0;
+				EtapasIniciales[n][2] = Double.parseDouble(Segundos.getText().toString());
+				EtapasIniciales[n][3] = Double.parseDouble(Lactato.getText().toString());
+				EtapasIniciales[n][4] = m < 6 ? Double.parseDouble(FCLPM.getText().toString()) : 0;
+				EtapasIniciales[n][5] = m < 6 ? Double.parseDouble(FCRPM.getText().toString()) : 0;
 			} catch (NumberFormatException e) {
 				Toast.makeText(this, "Por favor, ingrese datos válidos", Toast.LENGTH_SHORT).show();
 				return n;
 			}
 
 			m += 1;
-			Toast.makeText(this, "en este momento m = " + m, Toast.LENGTH_SHORT).show();
 			LimpiarEditext();
 
 			// Actualizar UI
@@ -211,6 +210,7 @@ public class prueba_de_ciclo_activity extends AppCompatActivity {
 		}
 		if (m == 8){
 			generarPdf();
+			finish();
 		}
 		return n;
 	}
@@ -305,10 +305,10 @@ public class prueba_de_ciclo_activity extends AppCompatActivity {
 			// Calcular y dibujar potencia
 			//(FRCRPM*6*ResPedKP)/6.12
 
-			int FRCRPM = EtapasIniciales[i][5];
-			int Respedkp = EtapasIniciales[i][0];
+			double FRCRPM = EtapasIniciales[i][5];
+			double Respedkp = EtapasIniciales[i][0];
 
-			double potencia = (double) (FRCRPM*6*Respedkp)/6.12;
+			double potencia = (FRCRPM*6*Respedkp)/6.12;
 
 			canvas.drawText(String.format("%.2f", potencia), startX + cellWidth * 7, startY + (i + 1) * cellHeight, paint);
 		}
@@ -375,8 +375,8 @@ public class prueba_de_ciclo_activity extends AppCompatActivity {
 		float[] xValues = new float[5]; // Ejemplo de valores X
 
 		for (int i = 0; i < 5; i++) {
-			int FRCRPM = EtapasIniciales[i][5];
-			int Respedkp = EtapasIniciales[i][0];
+			double FRCRPM = EtapasIniciales[i][5];
+			double Respedkp = EtapasIniciales[i][0];
 
 			double potencia1 = (double) (FRCRPM * 6 * Respedkp) / 6.12;
 
@@ -384,7 +384,7 @@ public class prueba_de_ciclo_activity extends AppCompatActivity {
 		}
 		//
 		for (int i = 0; i < 5; i++) {
-			int lac = EtapasIniciales[i][3];
+			double lac = EtapasIniciales[i][3];
 
 
             xValues[i] = (float) (double) lac; // Guardar potencia1 en el array yValues

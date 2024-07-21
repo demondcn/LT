@@ -50,7 +50,7 @@ public class prueba_de_natacion_activity extends AppCompatActivity {
 	private TextView guardar;
 	private TextView __ya_definiste_tus_datos_;
 	private TextView nota__el_calentamiento_no_puede_ser_de_mas_de_15_min__ni_incluyendo_piques;
-	int[][] EtapasIniciales = new int[7][7];
+	double[][] EtapasIniciales = new double[7][7];
 	private int n = 0;
 	private int m = 1;
 	private int selectedEtapa = 0;
@@ -159,18 +159,17 @@ public class prueba_de_natacion_activity extends AppCompatActivity {
 
 			// Guardar datos
 			try {
-				EtapasIniciales[n][0] = Integer.parseInt(Distancia.getText().toString());
-				EtapasIniciales[n][1] = Integer.parseInt(Minutos.getText().toString());
-				EtapasIniciales[n][2] = Integer.parseInt(Segundos.getText().toString());
-				EtapasIniciales[n][3] = Integer.parseInt(Lactato.getText().toString());
-				EtapasIniciales[n][4] = Integer.parseInt(FCLPM.getText().toString());
+				EtapasIniciales[n][0] = Double.parseDouble(Distancia.getText().toString());
+				EtapasIniciales[n][1] = Double.parseDouble(Minutos.getText().toString());
+				EtapasIniciales[n][2] = Double.parseDouble(Segundos.getText().toString());
+				EtapasIniciales[n][3] = Double.parseDouble(Lactato.getText().toString());
+				EtapasIniciales[n][4] = Double.parseDouble(FCLPM.getText().toString());
 			} catch (NumberFormatException e) {
 				Toast.makeText(this, "Por favor, ingrese datos válidos", Toast.LENGTH_SHORT).show();
 				return n;
 			}
 
 			m += 1;
-			Toast.makeText(this, "en este momento m = " + m, Toast.LENGTH_SHORT).show();
 			LimpiarEditext();
 
 			// Actualizar UI
@@ -212,6 +211,7 @@ public class prueba_de_natacion_activity extends AppCompatActivity {
 		}
 		if (m == 8){
 			generarPdf();
+			finish();
 		}
 		return n;
 	}
@@ -319,10 +319,10 @@ public class prueba_de_natacion_activity extends AppCompatActivity {
 			canvas.drawText(String.valueOf(EtapasIniciales[i][3]), startX + cellWidth * 4, startY + (i + 1) * cellHeight, paint);
 			canvas.drawText(String.valueOf(EtapasIniciales[i][4]), startX + cellWidth * 5, startY + (i + 1) * cellHeight, paint);
 			// Calcular y dibujar velocidad
-			int distancia = EtapasIniciales[i][0];
-			int minutos = EtapasIniciales[i][1];
-			int segundos = EtapasIniciales[i][2];
-			double velocidad = (double) distancia / (minutos * 60 + segundos);
+			double distancia = EtapasIniciales[i][0];
+			double minutos = EtapasIniciales[i][1];
+			double segundos = EtapasIniciales[i][2];
+			double velocidad = distancia / (minutos * 60 + segundos);
 			canvas.drawText(String.format("%.2f", velocidad), startX + cellWidth * 6, startY + (i + 1) * cellHeight, paint);
 		}
 

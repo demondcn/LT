@@ -1,17 +1,13 @@
 package com.example.lactato_udec;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-
-
 public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
-
 	private View _bg__seccion_iniciada_student_mode__ek2;
 	private TextView selecciona_la_prueba_a_realizar;
 	private TextView __ya_definiste_tus_datos_;
@@ -33,8 +29,8 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 	private TextView banda_sin_fin;
 	private View rectangle_1;
 	private TextView __definir_datos_;
-
 	private int userId;
+	private boolean datosDefinidos = false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -75,75 +71,56 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 			public void onClick(View v) {
 				Intent intent = new Intent(getApplicationContext(), definir_datos_deentrada_activity.class);
 				intent.putExtra("userId", userId);
-				startActivity(intent);
+				startActivityForResult(intent, 1); // startActivityForResult para capturar el resultado
 			}
 		});
-		image_6.setOnClickListener(new View.OnClickListener() {
+
+		View.OnClickListener pruebasClickListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_natacion_activity.class);
-				intent.putExtra("userId", userId);
-				startActivity(intent);
+				if (!datosDefinidos) {
+					Toast.makeText(seccion_iniciada_student_mode__activity.this, "Debes definir tus datos antes de realizar una prueba", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				Intent intent = null;
+				int id = v.getId();
+				if (id == R.id.image_6) {
+					intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_natacion_activity.class);
+				} else if (id == R.id.image_7) {
+					intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_subacuatica_activity.class);
+				} else if (id == R.id.image_8) {
+					intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_ciclismo_activity.class);
+				} else if (id == R.id.image_9) {
+					intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_canotaje_activity.class);
+				} else if (id == R.id.image_10) {
+					intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_bandasinfin_activity.class);
+				} else if (id == R.id.image_11) {
+					intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_ciclo_activity.class);
+				} else if (id == R.id.image_12) {
+					intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_carrera_de_pista_activity.class);
+				}
+				if (intent != null) {
+					intent.putExtra("userId", userId);
+					startActivity(intent);
+				}
 			}
-		});
-		image_7.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_subacuatica_activity.class);
-				intent.putExtra("userId", userId);
-				startActivity(intent);
-			}
-		});
+		};
 
-		image_8.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_ciclismo_activity.class);
-				intent.putExtra("userId", userId);
-				startActivity(intent);
-			}
-		});
+		image_6.setOnClickListener(pruebasClickListener);
+		image_7.setOnClickListener(pruebasClickListener);
+		image_8.setOnClickListener(pruebasClickListener);
+		image_9.setOnClickListener(pruebasClickListener);
+		image_10.setOnClickListener(pruebasClickListener);
+		image_11.setOnClickListener(pruebasClickListener);
+		image_12.setOnClickListener(pruebasClickListener);
+	}
 
-		image_9.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_canotaje_activity.class);
-				intent.putExtra("userId", userId);
-				startActivity(intent);
-			}
-		});
-
-		image_10.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_bandasinfin_activity.class);
-				intent.putExtra("userId", userId);
-				startActivity(intent);
-			}
-		});
-
-		image_11.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_ciclo_activity.class);
-				intent.putExtra("userId", userId);
-				startActivity(intent);
-			}
-		});
-		image_12.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(seccion_iniciada_student_mode__activity.this, prueba_de_carrera_de_pista_activity.class);
-				//envio del id
-				intent.putExtra("userId", userId);
-				startActivity(intent);
-			}
-		});
-
-
-
-
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == 1 && resultCode == RESULT_OK) {
+			datosDefinidos = true; // Actualiza el estado cuando se definen los datos
+			Toast.makeText(this, "Datos definidos exitosamente", Toast.LENGTH_SHORT).show();
+		}
 	}
 }
-	
-	

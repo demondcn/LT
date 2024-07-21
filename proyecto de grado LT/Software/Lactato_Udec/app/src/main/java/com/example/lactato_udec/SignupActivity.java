@@ -40,13 +40,11 @@ public class SignupActivity extends AppCompatActivity {
                 String email = binding.SignupEmail.getText().toString();
                 String password = binding.SignupPassword.getText().toString();
                 String confirmPassword = binding.SignupConfirm.getText().toString();
-
                 if(email.equals("") || password.equals("") || confirmPassword.equals(""))
                     Toast.makeText(SignupActivity.this, "Todos los campos son requeridos", Toast.LENGTH_SHORT).show();
                 else {
                     if(password.equals(confirmPassword)){
                         Boolean checkUserEmail = db.CheckUser(email);
-
                         if (!checkUserEmail){
                             long userId = db.insertDate(email, password);
                             if (userId != -1){

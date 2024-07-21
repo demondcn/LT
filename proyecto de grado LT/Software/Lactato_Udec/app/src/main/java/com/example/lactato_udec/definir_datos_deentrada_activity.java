@@ -66,15 +66,16 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 	private ImageView mitad2;
 	private View mitad1v;
 	private View mitad2v;
+	DatabaseHelper databaseHelper;
+	private int userId;
+	private String email;
 	private boolean isMitad1Selected = false;
 	private boolean isMitad2Selected = false;
 
 	private int selectedEtapa = 0;
 	private int selectedDeporteOEvento = 0;
 
-	DatabaseHelper databaseHelper;
-	private int userId;
-	private String email;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -160,7 +161,6 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 
 			}
 		});
-
 		mitad2v.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -182,7 +182,6 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 
 			}
 		});
-
 		// Asignación de listeners a los botones de grupo Seleccion Etapa
 		findViewById(R.id.rectangle_1_ek5).setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -193,7 +192,6 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 				colorOriginalPrepSelect = !colorOriginalPrepSelect;
 			}
 		});
-
 		findViewById(R.id.rectangle_1_ek1).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -203,7 +201,6 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 				colorOriginalPrecomp = !colorOriginalPrecomp;
 			}
 		});
-
 		findViewById(R.id.rectangle_1_ek9).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -213,9 +210,7 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 				colorOriginalComp = !colorOriginalComp;
 			}
 		});
-
 		// Asignación de listeners a los botones del grupo de Seleccion Deporte o Evento
-
 		findViewById(R.id.rectangle_1_ek8).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -225,7 +220,6 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 				colorOriginalResistencia = !colorOriginalResistencia;
 			}
 		});
-
 		findViewById(R.id.rectangle_1_ek2).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -235,7 +229,6 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 				colorOriginalPelotas = !colorOriginalPelotas;
 			}
 		});
-
 		findViewById(R.id.rectangle_1_ek3).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -245,7 +238,6 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 				colorOriginalCombateSelect = !colorOriginalCombateSelect;
 			}
 		});
-
 		findViewById(R.id.rectangle_1_ek4).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -262,7 +254,6 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 			}
 		});
 	}
-
 	private void saveUserData() {
 		Calendar calendario = Calendar.getInstance();
 		int dia = calendario.get(Calendar.DAY_OF_MONTH);
@@ -288,13 +279,15 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 		long id = databaseHelper.insertUserData(userId, fecha, name, age, weight, temperature, gender, selectedEtapa, selectedDeporteOEvento);
 
 		if (id > 0) {
-			Toast.makeText(this, "Datos guardados exitosamente el id es" + userId, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Datos guardados exitosamente", Toast.LENGTH_SHORT).show();
+			Intent resultIntent = new Intent();
+			resultIntent.putExtra("datosDefinidos", true); // Indicar que los datos fueron definidos
+			setResult(RESULT_OK, resultIntent);
+			finish();
 		} else {
 			Toast.makeText(this, "Error al guardar los datos el id es:" + userId, Toast.LENGTH_SHORT).show();
 		}
 	}
-
-
 	private void manageButtonSelection(View clickedView, View lastSelectedView, boolean colorOriginal, int backgroundOriginal, int backgroundNoOriginal) {
 		// Deseleccionar el último botón seleccionado
 		if (lastSelectedView != null && lastSelectedView != clickedView) {
@@ -312,10 +305,6 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 			view.setBackgroundResource(backgroundOriginal);
 		}
 	}
-	public void ProbadorResultados(int s){
-		Toast.makeText(this, "el resultado es " + s, Toast.LENGTH_SHORT).show();
-	}
 
 }
 
-	
