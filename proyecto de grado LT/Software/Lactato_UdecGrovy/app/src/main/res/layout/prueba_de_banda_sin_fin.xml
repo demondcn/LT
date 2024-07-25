@@ -1,0 +1,208 @@
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent" android:layout_height="wrap_content" >
+	<ScrollView android:id="@+id/prueba_de_carrera_de_pista"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent" >
+
+		<RelativeLayout android:id="@+id/content_container"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" >
+
+
+
+			<RelativeLayout android:id="@+id/page_prueba_de_carrera_de_pista_ek1"
+				android:layout_marginTop="0dp"
+				android:layout_marginStart="0dp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+
+				<View   android:id="@+id/_bg__prueba_de_carrera_de_pista_ek2"
+					 android:layout_marginStart="0dp"
+					android:layout_marginTop="0dp"
+					android:layout_width="390dp"
+					android:layout_height="844dp" />
+
+				<ImageView
+					android:id="@+id/image_6"
+					android:layout_width="440dp"
+					android:layout_height="844dp"
+					android:layout_marginStart="-20dp"
+					android:layout_marginTop="0dp"
+					android:contentDescription="image_6"
+					android:src="@drawable/image_bandasinfin" />
+
+
+				<RelativeLayout android:id="@+id/texto_zona"
+					android:layout_marginTop="12dp"
+					android:layout_marginStart="-5dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					>
+
+					<TextView android:id="@+id/test_para_carrera_a_pie"
+						android:fontFamily="Nunito"
+						android:layout_gravity="center_horizontal|center"
+						android:gravity="center"
+						android:textSize="32sp"
+						android:textColor="@color/test_para_carrera_a_pie_color"
+						android:layout_marginLeft="-5dp"
+						android:layout_marginTop="0dp"
+						android:layout_width="416dp"
+						android:layout_height="75dp"
+						android:text="Text para Banda sin Fin"
+						 />
+
+					<TextView android:id="@+id/etapa_1_aerobica"
+						android:fontFamily="Nunito"
+						android:textStyle="bold"
+						android:layout_gravity="center_horizontal|center"
+						android:gravity="center"
+						android:textSize="40sp"
+						android:textColor="@color/test_para_carrera_a_pie_color"
+						android:layout_marginLeft="-1dp"
+						android:layout_marginTop="41dp"
+						android:layout_width="413dp"
+						android:layout_height="81dp"
+						android:text="@string/etapa_1_aerobica_string"
+						 />
+
+					<TextView android:id="@+id/llena_tus_datos_correspondientes"
+						android:fontFamily="Nunito"
+						android:textStyle="bold"
+						android:layout_gravity="center_horizontal|center"
+						android:gravity="center"
+						android:textSize="24sp"
+						android:textColor="@color/test_para_carrera_a_pie_color"
+						android:layout_marginLeft="3dp"
+						android:layout_marginTop="94dp"
+						android:layout_width="405dp"
+						android:layout_height="70dp"
+						android:text="@string/llena_tus_datos_correspondientes_string"
+						 />
+
+				</RelativeLayout>
+
+
+				<EditText
+					android:id="@+id/FCLPM"
+					android:layout_width="350dp"
+					android:layout_height="60dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="600dp"
+					android:background="@drawable/lavender_border2"
+
+					android:drawablePadding="8dp"
+					android:hint="FCLPM"
+					android:inputType="numberDecimal"
+					android:padding="8dp" />
+				<EditText
+					android:id="@+id/Lactato"
+					android:layout_width="350dp"
+					android:layout_height="60dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="530dp"
+					android:background="@drawable/lavender_border2"
+
+					android:drawablePadding="8dp"
+					android:hint="Lactato"
+					android:inputType="numberDecimal"
+					android:padding="8dp" />
+				<EditText
+					android:id="@+id/Segundos"
+					android:layout_width="350dp"
+					android:layout_height="60dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="460dp"
+					android:background="@drawable/lavender_border2"
+
+					android:drawablePadding="8dp"
+					android:hint="Segundos"
+					android:inputType="numberDecimal"
+					android:padding="8dp" />
+				<EditText
+					android:id="@+id/Minutos"
+					android:layout_width="350dp"
+					android:layout_height="60dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="390dp"
+					android:background="@drawable/lavender_border2"
+
+					android:drawablePadding="8dp"
+					android:hint="Minutos"
+					android:inputType="numberDecimal"
+					android:padding="8dp" />
+				<EditText
+					android:id="@+id/Distancia"
+					android:layout_width="350dp"
+					android:layout_height="60dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="320dp"
+					android:background="@drawable/lavender_border2"
+					android:drawablePadding="8dp"
+					android:hint="INC.%"
+					android:inputType="numberDecimal"
+					android:padding="8dp" />
+
+
+
+				<RelativeLayout android:id="@+id/boton"
+					android:layout_marginTop="686dp"
+					android:layout_marginStart="-9dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					>
+
+					<View   android:id="@+id/rectangle_1"
+						android:background="@drawable/rectangle_2_shape"
+						 android:layout_marginStart="51dp"
+						android:layout_marginTop="30dp"
+						android:layout_width="310dp"
+						android:layout_height="58dp" />
+
+					<TextView android:id="@+id/guardar"
+						android:fontFamily="Nunito"
+						android:textStyle="bold"
+						android:textSize="18sp"
+						android:textColor="@color/guardar_color"
+						android:layout_marginLeft="171dp"
+						android:layout_marginTop="46dp"
+						android:layout_width="92dp"
+						android:layout_height="38dp"
+						android:text="@string/guardar_string"
+						 />
+
+					<TextView android:id="@+id/__ya_definiste_tus_datos_"
+						android:fontFamily="Nunito"
+						android:textStyle="bold"
+						android:layout_gravity="center_horizontal|center"
+						android:gravity="center"
+						android:textSize="18sp"
+						android:textColor="@color/rectangle_3_color"
+						android:layout_marginLeft="-3dp"
+						android:layout_marginTop="-25dp"
+						android:layout_width="409dp"
+						android:layout_height="66dp"
+						android:text="@string/__ya_definiste_tus_datos__string"
+						 />
+
+					<TextView android:id="@+id/nota__el_calentamiento_no_puede_ser_de_mas_de_15_min__ni_incluyendo_piques"
+						android:fontFamily="Nunito"
+						android:textStyle="bold"
+						android:layout_gravity="center_horizontal|center"
+						android:gravity="center"
+						android:textColor="@color/test_para_carrera_a_pie_color"
+						android:layout_marginLeft="9dp"
+						android:layout_marginTop="105dp"
+						android:layout_width="398dp"
+						android:layout_height="60dp"
+						android:text="@string/nota__el_calentamiento_no_puede_ser_de_mas_de_15_min__ni_incluyendo_piques_string"
+						 />
+
+				</RelativeLayout>
+
+			</RelativeLayout>
+		</RelativeLayout>
+
+	</ScrollView>
+</HorizontalScrollView>

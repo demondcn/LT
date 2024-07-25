@@ -1,0 +1,239 @@
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent" android:layout_height="wrap_content" >
+	<ScrollView android:id="@+id/seccion_iniciada_student_mode_" 
+		android:layout_width="wrap_content" 
+		android:layout_height="match_parent" >
+
+		<RelativeLayout android:id="@+id/content_container" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" >
+
+
+
+			<RelativeLayout android:id="@+id/page_seccion_iniciada_student_mode__ek1"
+				android:layout_marginTop="0dp"
+				android:layout_marginStart="0dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				>
+
+
+				<View   android:id="@+id/_bg__seccion_iniciada_student_mode__ek2"
+					android:background="@drawable/_bg__seccion_iniciada_student_mode__ek2_shape"
+					 android:layout_marginStart="0dp"
+					android:layout_marginTop="0dp"
+					android:layout_width="390dp"
+					android:layout_height="844dp" />
+
+				<TextView
+					android:id="@+id/selecciona_la_prueba_a_realizar"
+					android:layout_width="406dp"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal|center"
+					android:layout_marginLeft="-7dp"
+					android:layout_marginTop="269dp"
+					android:fontFamily="Nunito"
+					android:gravity="center"
+					android:text="@string/selecciona_la_prueba_a_realizar_string"
+					android:textColor="@color/selecciona_la_prueba_a_realizar_color"
+					android:textSize="24sp"
+					android:textStyle="bold" />
+
+				<TextView android:id="@+id/__ya_definiste_tus_datos_"
+					android:fontFamily="Nunito"
+					android:textStyle="bold"
+					android:layout_gravity="center_horizontal|center"
+					android:gravity="center"
+					android:textSize="18sp"
+					android:textColor="@color/selecciona_la_prueba_a_realizar_color"
+					android:layout_marginLeft="-8dp"
+					android:layout_marginTop="708dp"
+					android:layout_width="409dp"
+					android:layout_height="66dp"
+					android:text="@string/__ya_definiste_tus_datos__string"
+					 />
+
+				<ImageView
+					android:id="@+id/image_5"
+					android:layout_width="392dp"
+					android:layout_height="211dp"
+					android:layout_marginStart="-2dp"
+					android:layout_marginTop="37dp"
+					android:contentDescription="image_5"
+					android:src="@drawable/image_5" />
+
+				<ImageView android:id="@+id/image_6"
+					android:src="@drawable/image_6"
+					android:contentDescription="image_6"
+					 android:layout_marginStart="31dp"
+					android:layout_marginTop="331dp"
+					android:layout_width="95dp"
+					android:layout_height="82dp" />
+
+				<ImageView android:id="@+id/image_7"
+					android:src="@drawable/image_7"
+					android:contentDescription="image_7"
+					 android:layout_marginStart="147dp"
+					android:layout_marginTop="329dp"
+					android:layout_width="95dp"
+					android:layout_height="82dp" />
+
+				<ImageView android:id="@+id/image_8"
+					android:src="@drawable/image_8"
+					android:contentDescription="image_8"
+					 android:layout_marginStart="266dp"
+					android:layout_marginTop="329dp"
+					android:layout_width="95dp"
+					android:layout_height="82dp" />
+
+				<ImageView android:id="@+id/image_9"
+					android:src="@drawable/image_9"
+					android:contentDescription="image_9"
+					 android:layout_marginStart="31dp"
+					android:layout_marginTop="452dp"
+					android:layout_width="95dp"
+					android:layout_height="82dp" />
+
+				<ImageView android:id="@+id/image_10"
+					android:src="@drawable/image_10"
+					android:contentDescription="image_10"
+					 android:layout_marginStart="147dp"
+					android:layout_marginTop="446dp"
+					android:layout_width="95dp"
+					android:layout_height="82dp" />
+
+				<ImageView android:id="@+id/image_11"
+					android:src="@drawable/image_11"
+					android:contentDescription="image_11"
+					 android:layout_marginStart="266dp"
+					android:layout_marginTop="447dp"
+					android:layout_width="95dp"
+					android:layout_height="82dp" />
+
+				<ImageView android:id="@+id/image_12"
+					android:src="@drawable/image_12"
+					android:contentDescription="image_12"
+					 android:layout_marginStart="147dp"
+					android:layout_marginTop="573dp"
+					android:layout_width="95dp"
+					android:layout_height="82dp" />
+
+				<TextView android:id="@+id/subacuatica"
+					android:fontFamily="Nunito"
+					android:textStyle="bold"
+					android:textSize="18sp"
+					android:textColor="@color/subacuatica_color"
+					android:layout_marginLeft="145dp"
+					android:layout_marginTop="306dp"
+					android:layout_width="125dp"
+					android:layout_height="38dp"
+					android:text="@string/subacuatica_string"
+					 />
+
+				<TextView android:id="@+id/ciclismo"
+					android:fontFamily="Nunito"
+					android:textStyle="bold"
+					android:textSize="18sp"
+					android:textColor="@color/subacuatica_color"
+					android:layout_marginLeft="279dp"
+					android:layout_marginTop="306dp"
+					android:layout_width="94dp"
+					android:layout_height="38dp"
+					android:text="@string/ciclismo_string"
+					 />
+
+				<TextView android:id="@+id/cicloerg_metro"
+					android:fontFamily="Nunito"
+					android:textStyle="bold"
+					android:textSize="12sp"
+					android:textColor="@color/subacuatica_color"
+					android:layout_marginLeft="266dp"
+					android:layout_marginTop="424dp"
+					android:layout_width="129dp"
+					android:layout_height="24dp"
+					android:text="@string/cicloerg_metro_string"
+					 />
+
+				<TextView android:id="@+id/nataccion"
+					android:fontFamily="Nunito"
+					android:textStyle="bold"
+					android:textSize="18sp"
+					android:textColor="@color/subacuatica_color"
+					android:layout_marginLeft="37dp"
+					android:layout_marginTop="304dp"
+					android:layout_width="106dp"
+					android:layout_height="38dp"
+					android:text="@string/nataccion_string"
+					 />
+
+				<TextView android:id="@+id/canotaje"
+					android:fontFamily="Nunito"
+					android:textStyle="bold"
+					android:textSize="18sp"
+					android:textColor="@color/subacuatica_color"
+					android:layout_marginLeft="40dp"
+					android:layout_marginTop="422dp"
+					android:layout_width="97dp"
+					android:layout_height="38dp"
+					android:text="@string/canotaje_string"
+					 />
+
+				<TextView android:id="@+id/carrera_en_pista"
+					android:fontFamily="Nunito"
+					android:textStyle="bold"
+					android:textSize="14sp"
+					android:textColor="@color/subacuatica_color"
+					android:layout_marginLeft="145dp"
+					android:layout_marginTop="549dp"
+					android:layout_width="125dp"
+					android:layout_height="29dp"
+					android:text="@string/carrera_en_pista_string"
+					 />
+
+				<TextView android:id="@+id/banda_sin_fin"
+					android:fontFamily="Nunito"
+					android:textStyle="bold"
+					android:textSize="12sp"
+					android:textColor="@color/subacuatica_color"
+					android:layout_marginLeft="155dp"
+					android:layout_marginTop="424dp"
+					android:layout_width="95dp"
+					android:layout_height="24dp"
+					android:text="@string/banda_sin_fin_string"
+					 />
+
+
+				<RelativeLayout android:id="@+id/boton"
+					android:layout_marginTop="670dp"
+					android:layout_marginStart="41dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					>
+
+					<View
+						android:id="@+id/rectangle_1"
+						android:layout_width="310dp"
+						android:layout_height="58dp"
+						android:layout_marginStart="0dp"
+						android:layout_marginTop="0dp"
+						android:background="@drawable/rectangle_1_shape" />
+
+					<TextView android:id="@+id/__definir_datos_"
+						android:fontFamily="Nunito"
+						android:textStyle="bold"
+						android:textSize="18sp"
+						android:textColor="@color/_bg__seccion_iniciada_student_mode__ek2_color"
+						android:layout_marginLeft="91dp"
+						android:layout_marginTop="16dp"
+						android:layout_width="151dp"
+						android:layout_height="38dp"
+						android:text="@string/__definir_datos__string"
+						 />
+
+				</RelativeLayout>
+
+			</RelativeLayout>
+		</RelativeLayout>
+
+	</ScrollView>
+</HorizontalScrollView>
