@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -51,7 +52,8 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 	private TextView nota__el_calentamiento_no_puede_ser_de_mas_de_15_min__ni_incluyendo_piques;
 	private int n = 0;
 	private int m = 1;
-	double[][] EtapasIniciales = new double[7][7];
+	double[][] EtapasIniciales = new double[100][100];
+
 	private int selectedEtapa = 0;
 	private View lastSelectedButton;
 	private int userId;
@@ -64,6 +66,13 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 	private String userGenero;
 	private String userPeriodo;
 	private String userEvent;
+	private int pre4mol;
+	private int Moment4mols;
+	private int maxiEtapes;
+	private int momentoAnaerobico;
+	private boolean Anaerobica = false;
+	private boolean Aerobico = true;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -85,6 +94,7 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 			userId = -1; // Asigna un valor por defecto o maneja el caso según tu lógica
 			userName = "Usuario desconocido";
 		}
+
 		textotipodesuperficie = (TextView) findViewById(R.id.textotipodesuperficie);
 		_bg__prueba_de_carrera_de_pista_ek2 = (View) findViewById(R.id._bg__prueba_de_carrera_de_pista_ek2);
 		image_6 = (ImageView) findViewById(R.id.image_6);
@@ -152,71 +162,58 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 		FCLPM.setText("");
 	}
 	public int funcionEtapasIniciales(int n) {
-		if (m < 8) {
-			// Validar entradas
-			if (Distancia.getText().toString().isEmpty() ||
-					Minutos.getText().toString().isEmpty() ||
-					Segundos.getText().toString().isEmpty() ||
-					Lactato.getText().toString().isEmpty() ||
-					(m < 7 && FCLPM.getText().toString().isEmpty())) {
-				Toast.makeText(this, "Por favor, ingrese todos los datos válidos", Toast.LENGTH_SHORT).show();
-				return n;
-			}
-
-			// Guardar datos
-			try {
-				EtapasIniciales[n][0] = Double.parseDouble(Distancia.getText().toString());
+		try {
+				if (m < 2) {
+					EtapasIniciales[n][0] = Double.parseDouble(Distancia.getText().toString());
+				} else {
+					EtapasIniciales[n][0] = EtapasIniciales[0][0];
+				}
 				EtapasIniciales[n][1] = Double.parseDouble(Minutos.getText().toString());
 				EtapasIniciales[n][2] = Double.parseDouble(Segundos.getText().toString());
 				EtapasIniciales[n][3] = Double.parseDouble(Lactato.getText().toString());
-				EtapasIniciales[n][4] = m < 7 ? Double.parseDouble(FCLPM.getText().toString()) : 0;
-			} catch (NumberFormatException e) {
-				Toast.makeText(this, "Por favor, ingrese datos válidos", Toast.LENGTH_SHORT).show();
-				return n;
-			}
+				if (Anaerobica){
+					EtapasIniciales[n][4] = EtapasIniciales[n-1][4];
+				} else {
+					EtapasIniciales[n][4] = Double.parseDouble(FCLPM.getText().toString());
+				}
 
-			m += 1;
-			LimpiarEditext();
-
-			// Actualizar UI
-			String mensaje = m < 5 ? "Etapa " + m + " Aerobica" : m == 5 ? "Etapa Anaerobica" : m == 6 ? "Etapa Previa a 4 mmol/l" : m == 7 ? "Etapa Obtencion 4 mmol/l." : "Etapa Final";
-			String cambioHintLactamol = (m == 6) || (m == 7) ? "Lact Mmol/l" : "Lactato";
-			String mensajeBoton = m == 7? "Ver Resultados":"Guardar";
-			guardar.setText(mensajeBoton);
-			Lactato.setHint(cambioHintLactamol);
-			String cambioHintFclp = (m == 6) ? "Tramo para control de ritmo" : "FCLPM";
-			FCLPM.setHint(cambioHintFclp);
-
-			if (m == 7) {
-				FCLPM.setVisibility(View.GONE);
-				EtapasIniciales[6][4] = 0; // o 9, según tu lógica original
-			}
-
-			if (m == 8){
-				// Ocultar campos y mostrar mensaje final
-				Distancia.setVisibility(View.GONE);
-				Minutos.setVisibility(View.GONE);
-				Segundos.setVisibility(View.GONE);
-				Lactato.setVisibility(View.GONE);
-				llena_tus_datos_correspondientes.setVisibility(View.GONE);
-				guardar.setVisibility(View.GONE);
-				__ya_definiste_tus_datos_.setVisibility(View.GONE);
-				nota__el_calentamiento_no_puede_ser_de_mas_de_15_min__ni_incluyendo_piques.setVisibility(View.GONE);
-			}
-			etapa_1_aerobica.setText(mensaje);
-			textotipodesuperficie.setVisibility(View.GONE);
-			tartan.setVisibility(View.GONE);
-			tartant.setVisibility(View.GONE);
-			ARCILLA.setVisibility(View.GONE);
-			ARCILLAt.setVisibility(View.GONE);
-			ASFALTO.setVisibility(View.GONE);
-			ASFALTOt.setVisibility(View.GONE);
-			n += 1;
+		} catch (NumberFormatException e) {
+			Toast.makeText(this, "Por favor, ingrese datos válidos " + EtapasIniciales[n][4], Toast.LENGTH_SHORT).show();
+			return n;
 		}
-		if (m == 8){
+		if (Aerobico){
+			// Guardar datos
+			m += 1;
+			Distancia.setVisibility(View.GONE);
+			if (EtapasIniciales[n][3] < 4){
+				etapa_1_aerobica.setText("Etapa " + m + " Aerobica");
+				Aerobico = true;
+			}
+			else {
+				etapa_1_aerobica.setText("Etapa Anaerobica");
+				FCLPM.setVisibility(View.GONE);
+				Anaerobica = true;
+				Aerobico = false;
+			}
+
+		} else {
+			//guardardatosAna
+			momentoAnaerobico = n;
+			Moment4mols = n-1;
+			pre4mol = Moment4mols -1;
+			maxiEtapes = m;
 			generarPdf();
 			finish();
 		}
+		textotipodesuperficie.setVisibility(View.GONE);
+		tartan.setVisibility(View.GONE);
+		tartant.setVisibility(View.GONE);
+		ARCILLA.setVisibility(View.GONE);
+		ARCILLAt.setVisibility(View.GONE);
+		ASFALTO.setVisibility(View.GONE);
+		ASFALTOt.setVisibility(View.GONE);
+		n += 1;
+		LimpiarEditext();
 		return n;
 	}
 	private void manageButtonSelection(View clickedView, View lastSelectedView, boolean colorOriginal, int backgroundOriginal, int backgroundNoOriginal) {
@@ -302,18 +299,19 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 		// Dibujar las líneas de la tabla
 
 		//paint.setStyle(Paint.Style.STROKE);
-		int numRows = 5; // Número de filas, ajusta según tus datos
+		int numRows = maxiEtapes; // Número de filas, ajusta según tus datos
 		for (int i = 0; i <= numRows; i++) {
 			canvas.drawLine(startX, startY + i * cellHeight, startX + cellWidth * 7, startY + i * cellHeight, paint);
 		}
 		for (int i = 0; i <= 7; i++) {
 			canvas.drawLine(startX + i * cellWidth, startY, startX + i * cellWidth, startY + numRows * cellHeight, paint);
 		}
-
+		float[] xDataV = new float[numRows];
+		float[] yDataL = new float[numRows];
 		// Añadir datos a la tabla
 		for (int i = 0; i < numRows; i++) {
 			// Ajustando las posiciones para cada dato de la fila
-			String txtOrdenEtapa = i < 4 ? "Aerovica" : "Anaerovica";
+			String txtOrdenEtapa = i == maxiEtapes-1 ? "Anaerovica" : "Aerobica";
 			canvas.drawText(String.valueOf(txtOrdenEtapa), startX, startY + (i + 1) * cellHeight, paint);
 			canvas.drawText(String.valueOf(EtapasIniciales[i][0]), startX + cellWidth, startY + (i + 1) * cellHeight, paint);
 			canvas.drawText(String.valueOf(EtapasIniciales[i][1]), startX + cellWidth * 2, startY + (i + 1) * cellHeight, paint);
@@ -325,6 +323,8 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 			double minutos = EtapasIniciales[i][1];
 			double segundos = EtapasIniciales[i][2];
 			double velocidad = distancia / (minutos * 60 + segundos);
+			xDataV[i] = Float.parseFloat(String.format("%.2f", velocidad));
+			yDataL[i] = Float.parseFloat(String.format("%.2f", EtapasIniciales[i][3]));
 			canvas.drawText(String.format("%.2f", velocidad), startX + cellWidth * 6, startY + (i + 1) * cellHeight, paint);
 		}
 
@@ -371,9 +371,9 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 			canvas.drawLine(startX + firstColumnWidth + i * cellWidth, startY, startX + firstColumnWidth + i * cellWidth, startY + numRowse * cellHeight, paint);
 		}
 		//matecalculos
-		double VelocidadEtapa5 = (double) EtapasIniciales[5][0] / (EtapasIniciales[5][1] * 60 + EtapasIniciales[5][2]);
-		double VelocidadEtapa6 = (double) EtapasIniciales[6][0] / (EtapasIniciales[6][1] * 60 + EtapasIniciales[6][2]);
-		double V4p= VelocidadEtapa5 + (VelocidadEtapa6-VelocidadEtapa5)*((double) (4 - EtapasIniciales[5][3]) /(EtapasIniciales[6][3]-EtapasIniciales[5][3]));
+		double VPre = EtapasIniciales[pre4mol][0] / (EtapasIniciales[pre4mol][1] * 60 + EtapasIniciales[pre4mol][2]);
+		double VPost =  EtapasIniciales[Moment4mols][0] / (EtapasIniciales[Moment4mols][1] * 60 + EtapasIniciales[Moment4mols][2]);
+		double V4p= VPre + (VPost-VPre)*( (4 - EtapasIniciales[pre4mol][3]) /(EtapasIniciales[Moment4mols][3]-EtapasIniciales[pre4mol][3]));
 		// Formatear V4 a dos decimales
 		double V4kmp = V4p*3.6;
 		double V4mphp = V4p*2.2374;
@@ -421,129 +421,135 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 
 		//lac4/(min4*60+s4)
 		// Obtener el valor numérico
-		double valorNumerico = (double) EtapasIniciales[4][3] / (EtapasIniciales[4][1] * 60 + EtapasIniciales[4][2]);
+		double valorNumerico = (double) EtapasIniciales[momentoAnaerobico][3] / (EtapasIniciales[momentoAnaerobico][1] * 60 + EtapasIniciales[momentoAnaerobico][2]);
 		// Formatear el valor a 5 decimales
 		DecimalFormat df2 = new DecimalFormat("#.#####");
 		String RitmoMaxProdLac = df2.format(valorNumerico);
 		canvas.drawText("RITMO MAXIMO DE PRODUCCION DE LACTATO (VLaMax.), MMOL/L./S.: "+ RitmoMaxProdLac, startX, startY, paint);
 		// Finaliza la página
 		pdfDocument.finishPage(page);
+        //donde iria la grafica
 
-
-		pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 2).create(); // Tamaño A4
+		// Crear la segunda página para la gráfica
+		pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 2).create(); // Nueva página
 		page = pdfDocument.startPage(pageInfo);
 		canvas = page.getCanvas();
-
-		// Dibujar la gráfica
-		// Configurar paint para la gráfica
-		paint.setColor(Color.BLUE);
-		paint.setStrokeWidth(2);
-		paint.setStyle(Paint.Style.STROKE);
-
-		// Coordenadas para la gráfica
-		int graphStartX = 50;
-		int graphStartY = 200;
-		int graphWidth = 500;
-		int graphHeight = 400;
-
-		// Dibujar el marco de la gráfica
-		canvas.drawRect(graphStartX, graphStartY, graphStartX + graphWidth, graphStartY + graphHeight, paint);
-
-		// Dibujar ejes X e Y
-		paint.setColor(Color.BLACK);
-		canvas.drawLine(graphStartX, graphStartY + graphHeight, graphStartX + graphWidth, graphStartY + graphHeight, paint); // Eje X
-		canvas.drawLine(graphStartX, graphStartY, graphStartX, graphStartY + graphHeight, paint); // Eje Y
-
-		// Suponiendo que tienes datos de ejemplo en arrays para la gráfica
-		float[] yValues = new float[5]; // Crear un array de floats con longitud 5
-		float[] xValues = new float[5]; // Ejemplo de valores X
-
-		for (int i = 0; i < 5; i++) {
-			double distancia = EtapasIniciales[i][0];
-			double minutos = EtapasIniciales[i][1];
-			double segundos = EtapasIniciales[i][2];
-			double velocidad = distancia / (minutos * 60 + segundos);
-
-			yValues[i] = (float) velocidad; // Guardar potencia1 en el array yValues
-		}
-		//
-		for (int i = 0; i < 5; i++) {
-			double lac = EtapasIniciales[i][3];
-			xValues[i] = (float) lac; // Guardar potencia1 en el array yValues
-		}
-
-		for (int i = 0; i < xValues.length - 1; i++) {
-			// Encontrar el índice del mínimo elemento restante en xValues
-			int minIndex = i;
-			for (int j = i + 1; j < xValues.length; j++) {
-				if (xValues[j] < xValues[minIndex]) {
-					minIndex = j;
-				}
-			}
-			// Intercambiar elementos en xValues
-			float tempX = xValues[minIndex];
-			xValues[minIndex] = xValues[i];
-			xValues[i] = tempX;
-
-			// Intercambiar elementos correspondientes en yValues para mantener el paralelismo
-			float tempY = yValues[minIndex];
-			yValues[minIndex] = yValues[i];
-			yValues[i] = tempY;
-		}
-
-
-		float xMax = xValues[0]; // Inicialmente, xMax se establece como el primer valor de xValues
-		for (int i = 1; i < xValues.length; i++) {
-			if (xValues[i] > xMax) {
-				xMax = xValues[i]; // Actualizar xMax si encontramos un valor mayor en xValues
-			}
-		}
-
-		// Calcular yMax (máximo valor de Y)
-		float yMax = yValues[0]; // Inicialmente, yMax se establece como el primer valor de yValues
-		for (int i = 1; i < yValues.length; i++) {
-			if (yValues[i] > yMax) {
-				yMax = yValues[i]; // Actualizar yMax si encontramos un valor mayor en yValues
-			}
-		}
-
-		// Escalar los valores de los datos para ajustarlos al tamaño de la gráfica
-		float xScale = graphWidth / xMax;
-		float yScale = graphHeight / yMax;
-
-		// Dibujar los números en el eje X
-		paint.setTextSize(12);
-		paint.setTextAlign(Paint.Align.CENTER);
-		for (int i = 0; i <= xMax; i++) {
-			float xPos = graphStartX + i * xScale;
-			canvas.drawText(String.valueOf(i), xPos, graphStartY + graphHeight + 20, paint);
-			canvas.drawLine(xPos, graphStartY + graphHeight, xPos, graphStartY + graphHeight - 10, paint); // Marcas en el eje X
-		}
-
-		// Dibujar los números en el eje Y
-		paint.setTextAlign(Paint.Align.RIGHT);
-		for (int i = 0; i <= yMax; i += 5) { // Ajusta el incremento según tus necesidades
-			float yPos = graphStartY + graphHeight - i * yScale;
-			canvas.drawText(String.valueOf(i), graphStartX - 10, yPos, paint);
-			canvas.drawLine(graphStartX, yPos, graphStartX + 10, yPos, paint); // Marcas en el eje Y
-		}
-
-		// Dibujar la línea suavizada
-		Path path = new Path();
-		path.moveTo(graphStartX + xValues[0] * xScale, graphStartY + graphHeight - yValues[0] * yScale);
-
-		for (int i = 1; i < xValues.length; i++) {
-			path.lineTo(graphStartX + xValues[i] * xScale, graphStartY + graphHeight - yValues[i] * yScale);
-		}
-
-		canvas.drawPath(path, paint);
-
-		// Dibujar los puntos de la gráfica
-		paint.setStyle(Paint.Style.FILL);
-		for (int i = 0; i < xValues.length; i++) {
-			canvas.drawCircle(graphStartX + xValues[i] * xScale, graphStartY + graphHeight - yValues[i] * yScale, 5, paint);
-		}
+		// Crear la gráfica
+		Bitmap scatterPlotBitmap = ScatterPlot.createScatterPlot(595, 842, xDataV, yDataL);
+		// Dibujar la gráfica en el PDF
+		canvas.drawBitmap(scatterPlotBitmap, 0, 0, null);
 		// Finaliza la página
+		pdfDocument.finishPage(page);
+
+		pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 3).create();
+		page = pdfDocument.startPage(pageInfo);
+		canvas = page.getCanvas();
+		// Start drawing content
+
+		// Title
+		canvas.drawText("PRESCRIPCIÓN DE INTENSIDAD DE ENTRENAMIENTO DE RESISTENCIA (BASADA EN RECOMENDACIÓN DE OLBRECHT):", 10, 25, paint);
+
+		// Aerobic and Anaerobic labels
+		canvas.drawText("TRAMO PARA CONTROL DE RITMO, M. =", 10, 50, paint);
+		canvas.drawText("400", 300, 50, paint);
+		canvas.drawText("AERÓBICO", 400, 50, paint);
+		canvas.drawText("ANAERÓBICO", 500, 50, paint);
+
+		// Section for athletes training without issues
+		canvas.drawText("PARA ATLETAS QUE ESTÁN ENTRENANDO SIN PROBLEMAS", 10, 75, paint);
+
+		// Table headers
+		canvas.drawText("DISTANCIA, M.", 10, 100, paint);
+		canvas.drawText("MIN.", 100, 100, paint);
+		canvas.drawText("S.", 150, 100, paint);
+		canvas.drawText("% de V4", 200, 100, paint);
+
+		// Data for athletes training without issues
+		canvas.drawText("REGEN.", 10, 125, paint);
+		canvas.drawText("400", 100, 125, paint);
+		canvas.drawText("120", 150, 125, paint);
+		canvas.drawText("86", 200, 125, paint);
+
+		canvas.drawText("CONT.EXT.", 10, 150, paint);
+		canvas.drawText("2000", 100, 150, paint);
+		canvas.drawText("480", 150, 150, paint);
+		canvas.drawText("91", 200, 150, paint);
+
+		canvas.drawText("CONT.INT.", 10, 175, paint);
+		canvas.drawText("800", 100, 175, paint);
+		canvas.drawText("216", 150, 175, paint);
+		canvas.drawText("107", 200, 175, paint);
+
+		canvas.drawText("TEMPO", 10, 200, paint);
+		canvas.drawText("400", 100, 200, paint);
+		canvas.drawText("108", 150, 200, paint);
+		canvas.drawText("119", 200, 200, paint);
+
+		canvas.drawText("FARTLEK", 10, 225, paint);
+		canvas.drawText("200", 100, 225, paint);
+		canvas.drawText("54", 150, 225, paint);
+		canvas.drawText("119", 200, 225, paint);
+
+		canvas.drawText("INT.", 10, 250, paint);
+		canvas.drawText("200", 100, 250, paint);
+		canvas.drawText("50", 150, 250, paint);
+		canvas.drawText("119", 200, 250, paint);
+
+		canvas.drawText("INT. INT.", 10, 275, paint);
+		canvas.drawText("100", 100, 275, paint);
+		canvas.drawText("21", 150, 275, paint);
+		canvas.drawText("124", 200, 275, paint);
+
+		// Section for athletes who have been injured or not training
+		canvas.drawText("PARA ATLETAS QUE HAN ESTADO LESIONADOS O SIN ENTRENAR", 10, 300, paint);
+
+		// Data for athletes who have been injured or not training
+		canvas.drawText("REGEN.", 10, 325, paint);
+		canvas.drawText("400", 100, 325, paint);
+		canvas.drawText("132", 150, 325, paint);
+		canvas.drawText("83", 200, 325, paint);
+
+		canvas.drawText("CONT.EXT.", 10, 350, paint);
+		canvas.drawText("1600", 100, 350, paint);
+		canvas.drawText("528", 150, 350, paint);
+		canvas.drawText("90", 200, 350, paint);
+
+		canvas.drawText("CONT.INT.", 10, 375, paint);
+		canvas.drawText("600", 100, 375, paint);
+		canvas.drawText("204", 150, 375, paint);
+		canvas.drawText("97", 200, 375, paint);
+
+		canvas.drawText("TEMPO", 10, 400, paint);
+		canvas.drawText("400", 100, 400, paint);
+		canvas.drawText("124", 150, 400, paint);
+		canvas.drawText("106", 200, 400, paint);
+
+		canvas.drawText("FARTLEK", 10, 425, paint);
+		canvas.drawText("400", 100, 425, paint);
+		canvas.drawText("124", 150, 425, paint);
+		canvas.drawText("106", 200, 425, paint);
+
+		canvas.drawText("INT.", 10, 450, paint);
+		canvas.drawText("200", 100, 450, paint);
+		canvas.drawText("62", 150, 450, paint);
+		canvas.drawText("116", 200, 450, paint);
+
+		canvas.drawText("INT. INT.", 10, 475, paint);
+		canvas.drawText("100", 100, 475, paint);
+		canvas.drawText("21", 150, 475, paint);
+		canvas.drawText("121", 200, 475, paint);
+
+		// Comments section
+		canvas.drawText("COMENTARIOS:", 10, 500, paint);
+		canvas.drawText("* Del periodo preparatorio a la etapa precompetitiva, en deportes de resistencia aerobia debe enfatizarse en entrenamientos", 10, 525, paint);
+		canvas.drawText("continuo extensivo y cercano al umbral láctico para elevar la V4 o umbral láctico (aunque esto deprime el ritmo máximo de producción", 10, 550, paint);
+		canvas.drawText("de lactato)", 10, 575, paint);
+
+		canvas.drawText("* Del periodo preparatorio a la etapa precompetitiva, en deportes cuya competencia dura menos de 8 minutos debe enfatizarse en", 10, 600, paint);
+		canvas.drawText("entrenamientos de sprints y de intervalos de elevada intensidad para elevar la ritmo máximo de producción de lactato (aunque esto", 10, 625, paint);
+		canvas.drawText("disminuye la V4 o umbral láctico)", 10, 650, paint);
+
+		// Finish the first page
 		pdfDocument.finishPage(page);
 
 		// Guarda el PDF en el almacenamiento externo
@@ -571,6 +577,7 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 			Toast.makeText(this, "No hay aplicación para ver PDF instalada", Toast.LENGTH_LONG).show();
 		}
 	}
+
 
 }
 	
