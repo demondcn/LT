@@ -45,9 +45,6 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 			// Manejar el caso cuando no se proporciona userId
 			userId = -1; // Asigna un valor por defecto o maneja el caso según tu lógica
 		}
-
-
-
 		databaseHelper = new DatabaseHelper(this);
 		datosDefinidos = databaseHelper.areDatosDefinidos(userId);
 		_bg__seccion_iniciada_student_mode__ek2 = (View) findViewById(R.id._bg__seccion_iniciada_student_mode__ek2);

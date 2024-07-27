@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class ScatterPlot {
 
     private DatabaseHelper dbHelper;
-
     public ScatterPlot(Context context) {
         dbHelper = new DatabaseHelper(context);
     }
@@ -183,13 +182,11 @@ public class ScatterPlot {
 
         return bitmap;
     }
-
     private void saveScatterData(int user_id, float[] xData, float[] yData) {
         String xDataString = floatArrayToString(xData);
         String yDataString = floatArrayToString(yData);
         dbHelper.insertScatterData(user_id, xDataString, yDataString);
     }
-
     private String floatArrayToString(float[] array) {
         StringBuilder sb = new StringBuilder();
         for (float value : array) {
@@ -197,7 +194,6 @@ public class ScatterPlot {
         }
         return sb.toString();
     }
-
     private float[] stringToFloatArray(String s) {
         String[] parts = s.split(",");
         float[] array = new float[parts.length];
@@ -206,11 +202,9 @@ public class ScatterPlot {
         }
         return array;
     }
-
     private float scale(float value, float min, float max, float newMin, float newMax) {
         return ((value - min) / (max - min)) * (newMax - newMin) + newMin;
     }
-
     private float getMin(float[] data) {
         float min = data[0];
         for (float v : data) {
@@ -220,7 +214,6 @@ public class ScatterPlot {
         }
         return min;
     }
-
     private float getMax(float[] data) {
         float max = data[0];
         for (float v : data) {

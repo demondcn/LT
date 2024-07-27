@@ -53,7 +53,6 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 	private int n = 0;
 	private int m = 1;
 	double[][] EtapasIniciales = new double[100][100];
-
 	private int selectedEtapa = 0;
 	private View lastSelectedButton;
 	private int userId;

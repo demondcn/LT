@@ -60,7 +60,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         MyDatabase.close();
         return rowId;
     }
-
     public long insertDate(String email, String password){
         SQLiteDatabase MyDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -82,7 +81,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         MyDatabase.close();
         return -1;
     }
-
     public int getUserIdByEmail(String email) {
         SQLiteDatabase MyDatabase = this.getReadableDatabase();
         int userId = -1;
@@ -96,7 +94,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return userId;
     }
-
     public Boolean CheckUser(String email) {
         SQLiteDatabase MyDatabase = this.getReadableDatabase();
         Cursor cursor = MyDatabase.rawQuery("Select * from allusers where email = ?", new String[]{email});
@@ -105,7 +102,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         MyDatabase.close();
         return exists;
     }
-
     public Boolean CheckUserPassword(String email, String password) {
         SQLiteDatabase MyDatabase = this.getReadableDatabase();
         Cursor cursor = MyDatabase.rawQuery("Select * from allusers where email = ? and password = ?", new String[]{email, password});
@@ -114,7 +110,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         MyDatabase.close();
         return exists;
     }
-
     public String getUserNameById(int userId) {
         SQLiteDatabase MyDatabase = this.getReadableDatabase();
         String userName = "";
@@ -128,7 +123,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return userName;
     }
-
     public String getDatos(int userId, int n) {
         SQLiteDatabase MyDatabase = this.getReadableDatabase();
         String fieldName = "";
@@ -176,7 +170,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return result;
     }
-
     public boolean areDatosDefinidos(int userId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT datosDefinidos FROM userdata WHERE user_id = ?", new String[]{String.valueOf(userId)});
@@ -187,12 +180,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return false;
     }
-
     public void setDatosDefinidos(int userId, boolean definidos) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("datosDefinidos", definidos ? 1 : 0);
         db.update("userdata", values, "user_id = ?", new String[]{String.valueOf(userId)});
     }
+
 }
 
