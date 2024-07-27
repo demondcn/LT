@@ -30,7 +30,7 @@
 					android:layout_marginStart="-20dp"
 					android:layout_marginTop="0dp"
 					android:contentDescription="image_6"
-					android:src="@drawable/image_ciclo" />
+					android:src="@drawable/image_ciclo2" />
 
 
 				<RelativeLayout android:id="@+id/texto_zona"
@@ -45,7 +45,7 @@
 						android:layout_gravity="center_horizontal|center"
 						android:gravity="center"
 						android:textSize="32sp"
-						android:textColor="@color/test_para_carrera_a_pie_color"
+						android:textColor="@color/colorPrimaryDark"
 						android:layout_marginLeft="-5dp"
 						android:layout_marginTop="0dp"
 						android:layout_width="416dp"
@@ -59,7 +59,7 @@
 						android:layout_gravity="center_horizontal|center"
 						android:gravity="center"
 						android:textSize="40sp"
-						android:textColor="@color/test_para_carrera_a_pie_color"
+						android:textColor="@color/colorPrimaryDark"
 						android:layout_marginLeft="-1dp"
 						android:layout_marginTop="41dp"
 						android:layout_width="413dp"
@@ -73,7 +73,7 @@
 						android:layout_gravity="center_horizontal|center"
 						android:gravity="center"
 						android:textSize="24sp"
-						android:textColor="@color/test_para_carrera_a_pie_color"
+						android:textColor="@color/colorPrimaryDark"
 						android:layout_marginLeft="3dp"
 						android:layout_marginTop="94dp"
 						android:layout_width="405dp"
@@ -89,7 +89,7 @@
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
 					android:layout_marginTop="670dp"
-					android:background="@drawable/lavender_border2"
+					android:background="@drawable/lavender_border4"
 
 					android:drawablePadding="8dp"
 					android:hint="FCRPM"
@@ -101,7 +101,7 @@
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
 					android:layout_marginTop="600dp"
-					android:background="@drawable/lavender_border2"
+					android:background="@drawable/lavender_border4"
 
 					android:drawablePadding="8dp"
 					android:hint="FCLPM"
@@ -113,7 +113,7 @@
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
 					android:layout_marginTop="530dp"
-					android:background="@drawable/lavender_border2"
+					android:background="@drawable/lavender_border4"
 
 					android:drawablePadding="8dp"
 					android:hint="Lactato"
@@ -125,7 +125,7 @@
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
 					android:layout_marginTop="460dp"
-					android:background="@drawable/lavender_border2"
+					android:background="@drawable/lavender_border4"
 
 					android:drawablePadding="8dp"
 					android:hint="Segundos"
@@ -137,7 +137,7 @@
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
 					android:layout_marginTop="390dp"
-					android:background="@drawable/lavender_border2"
+					android:background="@drawable/lavender_border4"
 
 					android:drawablePadding="8dp"
 					android:hint="Minutos"
@@ -149,7 +149,7 @@
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
 					android:layout_marginTop="320dp"
-					android:background="@drawable/lavender_border2"
+					android:background="@drawable/lavender_border4"
 					android:drawablePadding="8dp"
 					android:hint="RES.PED.,KP."
 					android:inputType="numberDecimal"
@@ -165,7 +165,7 @@
 					>
 
 					<View   android:id="@+id/rectangle_1"
-						android:background="@drawable/rectangle_2_shape"
+						android:background="@drawable/rectangle_5_shape"
 						 android:layout_marginStart="51dp"
 						android:layout_marginTop="30dp"
 						android:layout_width="310dp"
@@ -175,7 +175,7 @@
 						android:fontFamily="Nunito"
 						android:textStyle="bold"
 						android:textSize="18sp"
-						android:textColor="@color/guardar_color"
+						android:textColor="@color/white"
 						android:layout_marginLeft="171dp"
 						android:layout_marginTop="46dp"
 						android:layout_width="92dp"
@@ -189,7 +189,7 @@
 						android:layout_gravity="center_horizontal|center"
 						android:gravity="center"
 						android:textSize="18sp"
-						android:textColor="@color/rectangle_3_color"
+						android:textColor="@color/colorPrimaryDark"
 						android:layout_marginLeft="-3dp"
 						android:layout_marginTop="-25dp"
 						android:layout_width="409dp"
@@ -202,7 +202,7 @@
 						android:textStyle="bold"
 						android:layout_gravity="center_horizontal|center"
 						android:gravity="center"
-						android:textColor="@color/test_para_carrera_a_pie_color"
+						android:textColor="@color/colorPrimaryDark"
 						android:layout_marginLeft="9dp"
 						android:layout_marginTop="105dp"
 						android:layout_width="398dp"
