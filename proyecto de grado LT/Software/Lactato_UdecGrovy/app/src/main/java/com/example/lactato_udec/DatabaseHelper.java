@@ -19,15 +19,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase MyDB) {
         MyDB.execSQL("CREATE TABLE allusers (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE, password TEXT)");
         MyDB.execSQL("CREATE TABLE userdata (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, email TEXT, fecha TEXT, name TEXT, age INTEGER, weight INTEGER, temperature INTEGER, gender TEXT, period INTEGER, event INTEGER, datosDefinidos INTEGER DEFAULT 0, FOREIGN KEY(user_id) REFERENCES allusers(id))");
+        MyDB.execSQL("CREATE TABLE scatterdata (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, xData TEXT, yData TEXT, FOREIGN KEY(user_id) REFERENCES allusers(id))");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase MyDB, int oldVersion, int newVersion) {
         MyDB.execSQL("drop Table if exists allusers");
         MyDB.execSQL("drop Table if exists userdata");
+        MyDB.execSQL("drop Table if exists scatterdata");
         onCreate(MyDB);
     }
 
+    public long insertScatterData(int user_id, String xData, String yData) {
+        SQLiteDatabase MyDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("user_id", user_id);
+        contentValues.put("xData", xData);
+        contentValues.put("yData", yData);
+        long rowId = MyDatabase.insert("scatterdata", null, contentValues);
+        MyDatabase.close();
+        return rowId;
+    }
+    public Cursor getAllScatterData(int user_id) {
+        SQLiteDatabase MyDatabase = this.getReadableDatabase();
+        return MyDatabase.rawQuery("SELECT xData, yData FROM scatterdata WHERE user_id = ?", new String[]{String.valueOf(user_id)});
+    }
     public long insertUserData(int user_id, String fecha, String name, int age, int weight, int temperature, String gender, int period, int event) {
         SQLiteDatabase MyDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

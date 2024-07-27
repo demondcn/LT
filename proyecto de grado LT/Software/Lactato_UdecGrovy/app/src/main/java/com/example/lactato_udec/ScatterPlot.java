@@ -4,11 +4,19 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.content.Context;
+import android.database.Cursor;
+
+import java.util.ArrayList;
 
 public class ScatterPlot {
 
-    // Método estático para crear un Bitmap con la gráfica de dispersión
-    public static Bitmap createScatterPlot(int width, int height, float[] xData, float[] yData) {
+    private DatabaseHelper dbHelper;
+
+    public ScatterPlot(Context context) {
+        dbHelper = new DatabaseHelper(context);
+    }
+    public Bitmap createScatterPlotUniti(int width, int height, float[] xData, float[] yData) {
         // Crear un Bitmap con el tamaño especificado
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -89,14 +97,121 @@ public class ScatterPlot {
 
         return bitmap;
     }
+    public Bitmap createScatterPlot(int width, int height, int user_id, float[] xData, float[] yData) {
+        saveScatterData(user_id, xData, yData);
 
-    // Método para escalar un valor dentro de un rango
-    private static float scale(float value, float min, float max, float newMin, float newMax) {
+        ArrayList<float[]> xDataList = new ArrayList<>();
+        ArrayList<float[]> yDataList = new ArrayList<>();
+
+        Cursor cursor = dbHelper.getAllScatterData(user_id);
+        while (cursor.moveToNext()) {
+            xDataList.add(stringToFloatArray(cursor.getString(0)));
+            yDataList.add(stringToFloatArray(cursor.getString(1)));
+        }
+        cursor.close();
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint();
+
+        paint.setColor(Color.WHITE);
+        canvas.drawRect(0, 0, width, height, paint);
+
+        int padding = 50;
+        int plotWidth = width - 2 * padding;
+        int plotHeight = height - 2 * padding;
+        int plotLeft = padding;
+        int plotTop = padding;
+        int plotRight = plotLeft + plotWidth;
+        int plotBottom = plotTop + plotHeight;
+
+        paint.setColor(Color.BLACK);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(2);
+        canvas.drawRect(plotLeft, plotTop, plotRight, plotBottom, paint);
+
+        paint.setStrokeWidth(4);
+        canvas.drawLine(plotLeft, plotBottom, plotRight, plotBottom, paint);
+        canvas.drawLine(plotLeft, plotTop, plotLeft, plotBottom, paint);
+
+        paint.setTextSize(20);
+        paint.setStyle(Paint.Style.FILL);
+        float xMin = getMin(xData);
+        float xMax = getMax(xData);
+        float yMin = getMin(yData);
+        float yMax = getMax(yData);
+        for (int i = 0; i <= 10; i++) {
+            float x = plotLeft + i * plotWidth / 10.0f;
+            String xLabel = String.format("%.1f", xMin + i * (xMax - xMin) / 10.0f);
+            canvas.drawText(xLabel, x - 20, plotBottom + 30, paint);
+
+            float y = plotBottom - i * plotHeight / 10.0f;
+            String yLabel = String.format("%.1f", yMin + i * (yMax - yMin) / 10.0f);
+            canvas.drawText(yLabel, plotLeft - 40, y + 10, paint);
+        }
+
+        paint.setColor(Color.BLUE);
+        paint.setStyle(Paint.Style.FILL);
+        int pointRadius = 10;
+
+        for (int j = 0; j < xDataList.size(); j++) {
+            float[] xDataArray = xDataList.get(j);
+            float[] yDataArray = yDataList.get(j);
+
+            for (int i = 0; i < xDataArray.length; i++) {
+                float x = scale(xDataArray[i], xMin, xMax, plotLeft, plotRight);
+                float y = scale(yDataArray[i], yMin, yMax, plotBottom, plotTop);
+                canvas.drawCircle(x, y, pointRadius, paint);
+            }
+
+            paint.setColor(j == xDataList.size() - 1 ? Color.RED : Color.BLUE);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeWidth(5);
+
+            Path path = new Path();
+            for (int i = 0; i < xDataArray.length; i++) {
+                float x = scale(xDataArray[i], xMin, xMax, plotLeft, plotRight);
+                float y = scale(yDataArray[i], yMin, yMax, plotBottom, plotTop);
+                if (i == 0) {
+                    path.moveTo(x, y);
+                } else {
+                    path.lineTo(x, y);
+                }
+            }
+            canvas.drawPath(path, paint);
+        }
+
+        return bitmap;
+    }
+
+    private void saveScatterData(int user_id, float[] xData, float[] yData) {
+        String xDataString = floatArrayToString(xData);
+        String yDataString = floatArrayToString(yData);
+        dbHelper.insertScatterData(user_id, xDataString, yDataString);
+    }
+
+    private String floatArrayToString(float[] array) {
+        StringBuilder sb = new StringBuilder();
+        for (float value : array) {
+            sb.append(value).append(",");
+        }
+        return sb.toString();
+    }
+
+    private float[] stringToFloatArray(String s) {
+        String[] parts = s.split(",");
+        float[] array = new float[parts.length];
+        for (int i = 0; i < parts.length; i++) {
+            array[i] = Float.parseFloat(parts[i]);
+        }
+        return array;
+    }
+
+    private float scale(float value, float min, float max, float newMin, float newMax) {
         return ((value - min) / (max - min)) * (newMax - newMin) + newMin;
     }
 
-    // Métodos para encontrar el valor mínimo y máximo en un array
-    private static float getMin(float[] data) {
+    private float getMin(float[] data) {
         float min = data[0];
         for (float v : data) {
             if (v < min) {
@@ -106,7 +221,7 @@ public class ScatterPlot {
         return min;
     }
 
-    private static float getMax(float[] data) {
+    private float getMax(float[] data) {
         float max = data[0];
         for (float v : data) {
             if (v > max) {
