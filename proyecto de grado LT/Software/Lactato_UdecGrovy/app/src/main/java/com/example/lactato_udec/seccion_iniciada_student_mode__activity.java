@@ -1,6 +1,7 @@
 package com.example.lactato_udec;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 	private TextView __definir_datos_;
 	private int userId;
 	private boolean datosDefinidos = false;
+	DatabaseHelper databaseHelper;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -44,6 +46,10 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 			userId = -1; // Asigna un valor por defecto o maneja el caso según tu lógica
 		}
 
+
+
+		databaseHelper = new DatabaseHelper(this);
+		datosDefinidos = databaseHelper.areDatosDefinidos(userId);
 		_bg__seccion_iniciada_student_mode__ek2 = (View) findViewById(R.id._bg__seccion_iniciada_student_mode__ek2);
 		selecciona_la_prueba_a_realizar = (TextView) findViewById(R.id.selecciona_la_prueba_a_realizar);
 		__ya_definiste_tus_datos_ = (TextView) findViewById(R.id.__ya_definiste_tus_datos_);
@@ -119,7 +125,7 @@ public class seccion_iniciada_student_mode__activity extends AppCompatActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == 1 && resultCode == RESULT_OK) {
-			datosDefinidos = true; // Actualiza el estado cuando se definen los datos
+			datosDefinidos = databaseHelper.areDatosDefinidos(userId); // Verifica el estado en la base de datos
 			Toast.makeText(this, "Datos definidos exitosamente", Toast.LENGTH_SHORT).show();
 		}
 	}

@@ -279,11 +279,12 @@ public class definir_datos_deentrada_activity extends AppCompatActivity {
 		long id = databaseHelper.insertUserData(userId, fecha, name, age, weight, temperature, gender, selectedEtapa, selectedDeporteOEvento);
 
 		if (id > 0) {
+			databaseHelper.setDatosDefinidos(userId, true); // Actualiza la base de datos
 			Toast.makeText(this, "Datos guardados exitosamente", Toast.LENGTH_SHORT).show();
+			// Redirige a la actividad principal y termina la actividad actual
 			Intent resultIntent = new Intent();
-			resultIntent.putExtra("datosDefinidos", true); // Indicar que los datos fueron definidos
 			setResult(RESULT_OK, resultIntent);
-			finish();
+			finish(); // Termina la actividad actual
 		} else {
 			Toast.makeText(this, "Error al guardar los datos el id es:" + userId, Toast.LENGTH_SHORT).show();
 		}

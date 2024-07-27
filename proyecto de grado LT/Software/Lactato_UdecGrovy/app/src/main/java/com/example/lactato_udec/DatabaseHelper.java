@@ -1,4 +1,5 @@
 package com.example.lactato_udec;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,13 +12,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String databaseName = "Signup.db";
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "Signup.db", null, 1);
+        super(context, databaseName, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase MyDB) {
         MyDB.execSQL("CREATE TABLE allusers (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE, password TEXT)");
-        MyDB.execSQL("CREATE TABLE userdata (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, email TEXT, fecha TEXT, name TEXT, age INTEGER, weight INTEGER, temperature INTEGER, gender TEXT, period INTEGER, event INTEGER, FOREIGN KEY(user_id) REFERENCES allusers(id))");
+        MyDB.execSQL("CREATE TABLE userdata (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, email TEXT, fecha TEXT, name TEXT, age INTEGER, weight INTEGER, temperature INTEGER, gender TEXT, period INTEGER, event INTEGER, datosDefinidos INTEGER DEFAULT 0, FOREIGN KEY(user_id) REFERENCES allusers(id))");
     }
 
     @Override
@@ -52,7 +53,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = MyDatabase.insert("allusers", null, contentValues);
 
         if (result != -1) {
-            // Return the ID of the new user
             Cursor cursor = MyDatabase.rawQuery("SELECT last_insert_rowid()", null);
             if (cursor.moveToFirst()) {
                 long userId = cursor.getLong(0);
@@ -66,6 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         MyDatabase.close();
         return -1;
     }
+
     public int getUserIdByEmail(String email) {
         SQLiteDatabase MyDatabase = this.getReadableDatabase();
         int userId = -1;
@@ -79,6 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return userId;
     }
+
     public Boolean CheckUser(String email) {
         SQLiteDatabase MyDatabase = this.getReadableDatabase();
         Cursor cursor = MyDatabase.rawQuery("Select * from allusers where email = ?", new String[]{email});
@@ -96,6 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         MyDatabase.close();
         return exists;
     }
+
     public String getUserNameById(int userId) {
         SQLiteDatabase MyDatabase = this.getReadableDatabase();
         String userName = "";
@@ -109,6 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return userName;
     }
+
     public String getDatos(int userId, int n) {
         SQLiteDatabase MyDatabase = this.getReadableDatabase();
         String fieldName = "";
@@ -157,8 +161,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public boolean areDatosDefinidos(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT datosDefinidos FROM userdata WHERE user_id = ?", new String[]{String.valueOf(userId)});
+        if (cursor != null && cursor.moveToFirst()) {
+            boolean datosDefinidos = cursor.getInt(0) == 1;
+            cursor.close();
+            return datosDefinidos;
+        }
+        return false;
+    }
 
-
-
+    public void setDatosDefinidos(int userId, boolean definidos) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("datosDefinidos", definidos ? 1 : 0);
+        db.update("userdata", values, "user_id = ?", new String[]{String.valueOf(userId)});
+    }
 }
 
