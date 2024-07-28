@@ -446,10 +446,7 @@ public class prueba_de_natacion_activity extends AppCompatActivity {
 		pageInfo = new PdfDocument.PageInfo.Builder(595, 900, 4).create();
 		page = pdfDocument.startPage(pageInfo);
 		canvas = page.getCanvas();
-		// Start drawing content
-		//calculos matematicos para los datos:
-		//matris de calculo:
-
+		
 		double [][] Int100M = {
 				{0.907, 0.945, 0.973, 0.987, 1.017, 1.033},
 				{1, 1, 1, 1, 1, 1},

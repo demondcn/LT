@@ -2,14 +2,14 @@
 package com.example.lactato_udec;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-
 import java.text.DecimalFormat;
-
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,10 +22,8 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-public class prueba_de_canotaje_activity extends AppCompatActivity {
 
-	
-	
+public class prueba_de_canotaje_activity extends AppCompatActivity {
 	private View _bg__prueba_de_carrera_de_pista_ek2;
 	private ImageView image_6;
 	private TextView test_para_carrera_a_pie;
@@ -50,9 +48,9 @@ public class prueba_de_canotaje_activity extends AppCompatActivity {
 	private TextView guardar;
 	private TextView __ya_definiste_tus_datos_;
 	private TextView nota__el_calentamiento_no_puede_ser_de_mas_de_15_min__ni_incluyendo_piques;
-	double[][] EtapasIniciales = new double[7][7];
 	private int n = 0;
 	private int m = 1;
+	double[][] EtapasIniciales = new double[7][7];
 	private int selectedEtapa = 0;
 	private View lastSelectedButton;
 	private int userId;
@@ -65,11 +63,19 @@ public class prueba_de_canotaje_activity extends AppCompatActivity {
 	private String userGenero;
 	private String userPeriodo;
 	private String userEvent;
+	private int pre4mol;
+	private int Moment4mols;
+	private int maxiEtapes;
+	private int momentoAnaerobico;
+	private boolean Anaerobica = false;
+	private boolean Aerobico = true;
+	private ScatterPlot scatterPlot;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.prueba_de_canotage);
+		scatterPlot = new ScatterPlot(this);
 		db = new DatabaseHelper(this);
 		Intent intent = getIntent();
 		if (intent != null && intent.hasExtra("userId")) {
@@ -87,21 +93,12 @@ public class prueba_de_canotaje_activity extends AppCompatActivity {
 			userName = "Usuario desconocido";
 		}
 
-
-
-		//textotipodesuperficie = (TextView) findViewById(R.id.textotipodesuperficie);
 		_bg__prueba_de_carrera_de_pista_ek2 = (View) findViewById(R.id._bg__prueba_de_carrera_de_pista_ek2);
 		image_6 = (ImageView) findViewById(R.id.image_6);
 		test_para_carrera_a_pie = (TextView) findViewById(R.id.test_para_carrera_a_pie);
 		etapa_1_aerobica = (TextView) findViewById(R.id.etapa_1_aerobica);
 		llena_tus_datos_correspondientes = (TextView) findViewById(R.id.llena_tus_datos_correspondientes);
 		rectangle_1 = (View) findViewById(R.id.rectangle_1);
-		//tartan = (View) findViewById(R.id.tartan);
-		//tartant = (TextView) findViewById(R.id.tartant);
-		//ARCILLA = (View) findViewById(R.id.ARCILLA);
-		//ARCILLAt = (TextView) findViewById(R.id.ARCILLAt);
-		//ASFALTO = (View) findViewById(R.id.ASFALTO);
-		//ASFALTOt = (TextView) findViewById(R.id.ASFALTOt);
 		FCLPM = (EditText) findViewById(R.id.FCLPM);
 		Lactato = (EditText) findViewById(R.id.Lactato);
 		Segundos = (EditText) findViewById(R.id.Segundos);
@@ -130,70 +127,53 @@ public class prueba_de_canotaje_activity extends AppCompatActivity {
 		FCLPM.setText("");
 	}
 	public int funcionEtapasIniciales(int n) {
-		if (m < 8) {
-			// Validar entradas
-			if (Distancia.getText().toString().isEmpty() ||
-					Minutos.getText().toString().isEmpty() ||
-					Segundos.getText().toString().isEmpty() ||
-					Lactato.getText().toString().isEmpty() ||
-					(m < 6 && FCLPM.getText().toString().isEmpty())) {
-				Toast.makeText(this, "Por favor, ingrese todos los datos válidos", Toast.LENGTH_SHORT).show();
-				return n;
-			}
-
-			// Guardar datos
-			try {
-				EtapasIniciales[n][0] = Double.parseDouble(Distancia.getText().toString());
+		try {
+				if (m < 2) {
+					EtapasIniciales[n][0] = Double.parseDouble(Distancia.getText().toString());
+				} else {
+					EtapasIniciales[n][0] = EtapasIniciales[0][0];
+				}
 				EtapasIniciales[n][1] = Double.parseDouble(Minutos.getText().toString());
 				EtapasIniciales[n][2] = Double.parseDouble(Segundos.getText().toString());
 				EtapasIniciales[n][3] = Double.parseDouble(Lactato.getText().toString());
-				EtapasIniciales[n][4] = m < 6 ? Double.parseDouble(FCLPM.getText().toString()) : 0;
-			} catch (NumberFormatException e) {
-				Toast.makeText(this, "Por favor, ingrese datos válidos", Toast.LENGTH_SHORT).show();
-				return n;
-			}
+				if (Anaerobica){
+					EtapasIniciales[n][4] = EtapasIniciales[n-1][4];
+					EtapasIniciales[n][0] = Double.parseDouble(Distancia.getText().toString());
+				} else {
+					EtapasIniciales[n][4] = Double.parseDouble(FCLPM.getText().toString());
+				}
 
-			m += 1;
-			LimpiarEditext();
-
-			// Actualizar UI
-			String mensaje = m < 5 ? "Etapa " + m + " Aerobica" : m == 5 ? "Etapa Anaerobica" : m == 6 ? "Etapa Previa a 4 mmol/l" : m == 7 ? "Etapa Obtencion 4 mmol/l." : "Etapa Final";
-			String cambioHintLactamol = (m == 6) || (m == 7) ? "Lact Mmol/l" : "Lactato";
-			String mensajeBoton = m == 7? "Ver Resultados":"Guardar";
-			guardar.setText(mensajeBoton);
-			Lactato.setHint(cambioHintLactamol);
-
-
-			if (m == 6) {
-				FCLPM.setVisibility(View.GONE);
-				EtapasIniciales[6][4] = 0; // o 9, según tu lógica original
-			}
-
-			if (m == 8){
-				// Ocultar campos y mostrar mensaje final
-				Distancia.setVisibility(View.GONE);
-				Minutos.setVisibility(View.GONE);
-				Segundos.setVisibility(View.GONE);
-				Lactato.setVisibility(View.GONE);
-				llena_tus_datos_correspondientes.setVisibility(View.GONE);
-				guardar.setVisibility(View.GONE);
-				__ya_definiste_tus_datos_.setVisibility(View.GONE);
-				nota__el_calentamiento_no_puede_ser_de_mas_de_15_min__ni_incluyendo_piques.setVisibility(View.GONE);
-			}
-			etapa_1_aerobica.setText(mensaje);
-			//textotipodesuperficie.setVisibility(View.GONE);
-			//tartan.setVisibility(View.GONE);
-			//tartant.setVisibility(View.GONE);
-			//ARCILLA.setVisibility(View.GONE);
-			//ARCILLAt.setVisibility(View.GONE);
-			//ASFALTO.setVisibility(View.GONE);
-			//ASFALTOt.setVisibility(View.GONE);
-			n += 1;
+		} catch (NumberFormatException e) {
+			Toast.makeText(this, "Por favor, ingrese datos válidos " + EtapasIniciales[n][4], Toast.LENGTH_SHORT).show();
+			return n;
 		}
-		if (m == 8){
+		if (Aerobico){
+			// Guardar datos
+			m += 1;
+			Distancia.setVisibility(View.GONE);
+			if (EtapasIniciales[n][3] < 4){
+				etapa_1_aerobica.setText("Etapa " + m + " Aerobica");
+				Aerobico = true;
+			}
+			else {
+				etapa_1_aerobica.setText("Etapa Anaerobica");
+				FCLPM.setVisibility(View.GONE);
+				Distancia.setVisibility(View.VISIBLE);
+				Anaerobica = true;
+				Aerobico = false;
+			}
+
+		} else {
+			//guardardatosAna
+			momentoAnaerobico = n;
+			Moment4mols = n-1;
+			pre4mol = Moment4mols -1;
+			maxiEtapes = m;
 			generarPdf();
 			finish();
 		}
+		n += 1;
+		LimpiarEditext();
 		return n;
 	}
 
@@ -241,10 +221,7 @@ public class prueba_de_canotaje_activity extends AppCompatActivity {
 		String txtDeporte = userEvent.equals("1") ? "RESISTENCIA": userEvent.equals("2") ? "PELOTAS": userEvent.equals("3") ? "COMBATE": userEvent.equals("4") ? "VELOC., FZA RAP., ANAEROBICO":"valor no existente";
 		canvas.drawText("DEPORTE / EVENTO:", 20, 220, paint);
 		canvas.drawText(txtDeporte, 200, 220, paint);
-		//canvas.drawText("TIPO DE SUPERFICIE:", 20, 240, paint);
-		//String txtSuperficie = selectedEtapa == 1? "TARTAN" : selectedEtapa == 2? "ARCILLa" : selectedEtapa == 3? "ASFALTO":"dato no generado";
-		//canvas.drawText(txtSuperficie, 200, 240, paint);
-
+		
 		// Dibujar las cabeceras de la tabla
 		int startX = 20;
 		int startY = 270;
@@ -264,18 +241,20 @@ public class prueba_de_canotaje_activity extends AppCompatActivity {
 		// Dibujar las líneas de la tabla
 
 		//paint.setStyle(Paint.Style.STROKE);
-		int numRows = 5; // Número de filas, ajusta según tus datos
+		int numRows = maxiEtapes; // Número de filas, ajusta según tus datos
 		for (int i = 0; i <= numRows; i++) {
 			canvas.drawLine(startX, startY + i * cellHeight, startX + cellWidth * 7, startY + i * cellHeight, paint);
 		}
 		for (int i = 0; i <= 7; i++) {
 			canvas.drawLine(startX + i * cellWidth, startY, startX + i * cellWidth, startY + numRows * cellHeight, paint);
 		}
+		float[] xDataV = new float[numRows];
+		float[] yDataL = new float[numRows];
 
 		// Añadir datos a la tabla
 		for (int i = 0; i < numRows; i++) {
 			// Ajustando las posiciones para cada dato de la fila
-			String txtOrdenEtapa = i < 4 ? "Aerovica" : "Anaerovica";
+			String txtOrdenEtapa = i == maxiEtapes-1 ? "Anaerobica" : "Aerobica";
 			canvas.drawText(String.valueOf(txtOrdenEtapa), startX, startY + (i + 1) * cellHeight, paint);
 			canvas.drawText(String.valueOf(EtapasIniciales[i][0]), startX + cellWidth, startY + (i + 1) * cellHeight, paint);
 			canvas.drawText(String.valueOf(EtapasIniciales[i][1]), startX + cellWidth * 2, startY + (i + 1) * cellHeight, paint);
@@ -288,6 +267,8 @@ public class prueba_de_canotaje_activity extends AppCompatActivity {
 			double segundos = EtapasIniciales[i][2];
 			double velocidad = distancia / (minutos * 60 + segundos);
 			double velocidadkmh = velocidad*3.6;
+			xDataV[i] = Float.parseFloat(String.format("%.2f", velocidadkmh));
+			yDataL[i] = Float.parseFloat(String.format("%.2f", EtapasIniciales[i][3]));
 			canvas.drawText(String.format("%.2f", velocidadkmh), startX + cellWidth * 6, startY + (i + 1) * cellHeight, paint);
 		}
 
@@ -326,28 +307,27 @@ public class prueba_de_canotaje_activity extends AppCompatActivity {
 			canvas.drawLine(startX + firstColumnWidth + i * cellWidth, startY, startX + firstColumnWidth + i * cellWidth, startY + numRowse * cellHeight, paint);
 		}
 		//matecalculos
-		double VelocidadEtapa5 = (double) EtapasIniciales[5][0] / (EtapasIniciales[5][1] * 60 + EtapasIniciales[5][2]);
-		double VelocidadEtapa6 = (double) EtapasIniciales[6][0] / (EtapasIniciales[6][1] * 60 + EtapasIniciales[6][2]);
-		double V4p= VelocidadEtapa5 + (VelocidadEtapa6-VelocidadEtapa5)*((double) (4 - EtapasIniciales[5][3]) /(EtapasIniciales[6][3]-EtapasIniciales[5][3]));
+		double VPre = (EtapasIniciales[pre4mol][0] / (EtapasIniciales[pre4mol][1] * 60 + EtapasIniciales[pre4mol][2]))*3.6;
+		double VPost =  (EtapasIniciales[Moment4mols][0] / (EtapasIniciales[Moment4mols][1] * 60 + EtapasIniciales[Moment4mols][2]))*3.6;
+		double V4p= VPre + (VPost-VPre)*( (4 - EtapasIniciales[pre4mol][3]) /(EtapasIniciales[Moment4mols][3]-EtapasIniciales[pre4mol][3]));
 		// Formatear V4 a dos decimales
-		double V4kmp = V4p*3.6;
-		double V4mphp = V4p*2.2374;
+		double V4msp = V4p*3.6;
+		double V4mphp = V4p/1.609;
 		double supRitmo = 1000/V4p;
 		int RitmonKMMin = (int) (supRitmo/60);
 		double RitmonKMSp = supRitmo - (RitmonKMMin*60);
 		DecimalFormat df = new DecimalFormat("#0.00");
 		String V4 = df.format(V4p);
-		String V4km = df.format(V4kmp);
+		String V4ms = df.format(V4msp);
 		String V4mph = df.format(V4mphp);
 		String RitmonKMS = df.format(RitmonKMSp);
 
-
 		Object[][] resultados = {
-				{"V4,m/s."                 ,V4   ,17.21},
-				{"V4,km/h."                ,V4km    ,10.70},
-				{"V4;mph"                  ,V4mph    ,4.78},
-				{"RITMO/KM , DE V4, MIN."  ,RitmonKMMin    ,0},
-				{"RITMO/KM , DE V4, S."    ,RitmonKMS    ,58}
+			{"V4,km/h."                 ,V4   ,35.39},
+			{"V4,mph."                ,V4mph    ,22},
+			{"V4,m/s."                  ,   V4ms ,9.8},
+			{"RITMO/KM , DE V4, MIN."  ,RitmonKMMin    ,1},
+			{"RITMO/KM , DE V4, S."    ,RitmonKMS    ,42}
 		};
 
 
@@ -370,14 +350,32 @@ public class prueba_de_canotaje_activity extends AppCompatActivity {
 
 		//lac4/(min4*60+s4)
 		// Obtener el valor numérico
-		double valorNumerico = (double) EtapasIniciales[4][3] / (EtapasIniciales[4][1] * 60 + EtapasIniciales[4][2]);
+		double valorNumerico = (double) EtapasIniciales[momentoAnaerobico][3] / (EtapasIniciales[momentoAnaerobico][1] * 60 + EtapasIniciales[momentoAnaerobico][2]);
 		// Formatear el valor a 5 decimales
 		DecimalFormat df2 = new DecimalFormat("#.#####");
 		String RitmoMaxProdLac = df2.format(valorNumerico);
 		canvas.drawText("RITMO MAXIMO DE PRODUCCION DE LACTATO (VLaMax.), MMOL/L./S.: "+ RitmoMaxProdLac, startX, startY, paint);
 		// Finaliza la página
 		pdfDocument.finishPage(page);
-
+		// Crear la segunda página para la gráfica
+		pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 2).create(); // Nueva página
+		page = pdfDocument.startPage(pageInfo);
+		canvas = page.getCanvas();
+		// Crear la gráfica unica
+		Bitmap scatterPlotBitmap = scatterPlot.createScatterPlotUniti(595, 842, xDataV, yDataL);
+		// Dibujar la gráfica en el PDF
+		canvas.drawBitmap(scatterPlotBitmap, 0, 0, null);
+		// Finaliza la página
+		pdfDocument.finishPage(page);
+		pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 3).create(); // Nueva página
+		page = pdfDocument.startPage(pageInfo);
+		canvas = page.getCanvas();
+		// Crear la gráfica doble
+		Bitmap segundoscatterPlotBitmap = scatterPlot.createScatterPlot(595, 842, userId ,xDataV, yDataL);
+		// Dibujar la gráfica en el PDF
+		canvas.drawBitmap(segundoscatterPlotBitmap, 0, 0, null);
+		// Finaliza la página
+		pdfDocument.finishPage(page);
 		// Guardar el documento en el almacenamiento interno
 		String fileName = "Informe_Lactato_Canotage.pdf";
 		File filePath = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName);

@@ -2,9 +2,7 @@
 package com.example.lactato_udec;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-
 import java.text.DecimalFormat;
-
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -393,7 +391,7 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 		Object[][] resultados = {
 				{"V4,m/s."                 ,V4   ,6              ,5.5        ,4.4     ,4.15},
 				{"V4,km/h."                ,V4km    ,21.60          ,19.80      ,15.84   ,14.94},
-				{"V4;mph"                  ,V4mph    ,13.42          ,12.31      ,9.84    ,9.29},
+				{"V4,mph"                  ,V4mph    ,13.42          ,12.31      ,9.84    ,9.29},
 				{"RITMO/KM , DE V4, MIN."  ,RitmonKMMin    ,2	           ,3	       ,3	    ,4},
 				{"RITMO/KM , DE V4, S."    ,RitmonKMS    ,3              ,4          ,5       ,6}
 		};
@@ -456,8 +454,7 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 		pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 4).create();
 		page = pdfDocument.startPage(pageInfo);
 		canvas = page.getCanvas();
-		// Start drawing content
-		//calculos matematicos para los datos:
+		
 		String TramoControlRitmo = String.valueOf(EtapasIniciales[0][5]);
 		//matris de calculo:
 		//	             1,099	        1,18	1,25	       1,39	        1,39	    1,44
