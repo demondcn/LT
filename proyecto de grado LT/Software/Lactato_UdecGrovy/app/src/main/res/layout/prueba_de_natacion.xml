@@ -211,6 +211,18 @@
 					android:hint="Distancia"
 					android:inputType="numberDecimal"
 					android:padding="8dp" />
+				<EditText
+					android:id="@+id/RTC"
+					android:layout_width="350dp"
+					android:layout_height="60dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="250dp"
+					android:background="@drawable/lavender_border3"
+					android:drawablePadding="8dp"
+					android:hint="400M.TECN.LIBRE EN COMPETENCIA Sec."
+					android:textSize="16sp"
+					android:inputType="numberDecimal"
+					android:padding="8dp" />
 
 
 

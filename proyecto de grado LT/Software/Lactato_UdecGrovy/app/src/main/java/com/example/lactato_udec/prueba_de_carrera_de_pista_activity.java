@@ -247,14 +247,14 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 		Paint paint = new Paint();
 
 		// Configuración del paint para el texto
-		paint.setColor(Color.BLACK);
+		paint.setColor(Color.RED);
 		paint.setTextSize(12);
 
 		// Dibujar el título
 		paint.setTextSize(16);
 		paint.setFakeBoldText(true);
 		canvas.drawText("TEST ESTÁNDAR DE LACTATO PARA CON CARRERA A PIE", 20, 30, paint);
-
+		paint.setColor(Color.BLACK);
 		// Dibujar los subtítulos y textos
 		paint.setTextSize(12);
 		paint.setFakeBoldText(false);
