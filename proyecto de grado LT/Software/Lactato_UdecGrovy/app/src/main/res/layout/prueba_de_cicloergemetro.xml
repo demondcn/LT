@@ -144,7 +144,7 @@
 					android:inputType="numberDecimal"
 					android:padding="8dp" />
 				<EditText
-					android:id="@+id/Distancia"
+					android:id="@+id/Resist_ped"
 					android:layout_width="350dp"
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"

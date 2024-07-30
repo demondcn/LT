@@ -1,0 +1,3 @@
+Arreglar que en todas las pruebas si da error el try de funcionesEtapas salga esa variable de antes que era de texteo
+Haccer un chekeo y sacar los pdf perfectos de cada prueba para guardarlos en una carpeta antes del miercoles
+preguntar en forros como usar librerias

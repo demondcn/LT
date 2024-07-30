@@ -466,7 +466,7 @@ public class prueba_de_ciclismo_activity extends AppCompatActivity {
 		canvas.drawText(TramoControlRitmo, 300, 150, paint);
 		canvas.drawText(TramoControlRitmo, 350, 150, paint);
 		canvas.drawText(TramoControlRitmo, 400, 150, paint);
-		//
+		paint.setColor(Color.RED);
 		canvas.drawText("Min.", 10, 175, paint);
 		paint.setColor(Color.BLACK);
 		canvas.drawText(primeraTabla[0][0], 100, 175, paint);
@@ -476,7 +476,7 @@ public class prueba_de_ciclismo_activity extends AppCompatActivity {
 		canvas.drawText(primeraTabla[0][4], 300, 175, paint);
 		canvas.drawText(primeraTabla[0][5], 350, 175, paint);
 		canvas.drawText(primeraTabla[0][6], 400, 175, paint);
-
+		paint.setColor(Color.RED);
 		canvas.drawText("S.", 10, 200, paint);
 		paint.setColor(Color.BLACK);
 		canvas.drawText(primeraTabla[1][0], 100, 200, paint);
@@ -486,7 +486,7 @@ public class prueba_de_ciclismo_activity extends AppCompatActivity {
 		canvas.drawText(primeraTabla[1][4], 300, 200, paint);
 		canvas.drawText(primeraTabla[1][5], 350, 200, paint);
 		canvas.drawText(primeraTabla[1][6], 400, 200, paint);
-
+		paint.setColor(Color.RED);
 		canvas.drawText("%deV4", 10, 225, paint);
 		paint.setColor(Color.BLACK);
 		canvas.drawText(primeraTabla[2][0], 100, 225, paint);

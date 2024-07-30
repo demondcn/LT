@@ -83,7 +83,17 @@
 
 				</RelativeLayout>
 
-
+				<EditText
+					android:id="@+id/INC"
+					android:layout_width="350dp"
+					android:layout_height="60dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="670dp"
+					android:background="@drawable/lavender_border2"
+					android:drawablePadding="8dp"
+					android:hint="INC., %"
+					android:inputType="numberDecimal"
+					android:padding="8dp" />
 				<EditText
 					android:id="@+id/FCLPM"
 					android:layout_width="350dp"
@@ -133,21 +143,21 @@
 					android:inputType="numberDecimal"
 					android:padding="8dp" />
 				<EditText
-					android:id="@+id/Distancia"
+					android:id="@+id/VKMH"
 					android:layout_width="350dp"
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
 					android:layout_marginTop="320dp"
 					android:background="@drawable/lavender_border2"
 					android:drawablePadding="8dp"
-					android:hint="INC.%"
+					android:hint="Velocidad KM/H"
 					android:inputType="numberDecimal"
 					android:padding="8dp" />
 
 
 
 				<RelativeLayout android:id="@+id/boton"
-					android:layout_marginTop="686dp"
+					android:layout_marginTop="750dp"
 					android:layout_marginStart="-9dp"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"

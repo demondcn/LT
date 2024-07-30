@@ -50,7 +50,7 @@ public class prueba_de_canotaje_activity extends AppCompatActivity {
 	private TextView nota__el_calentamiento_no_puede_ser_de_mas_de_15_min__ni_incluyendo_piques;
 	private int n = 0;
 	private int m = 1;
-	double[][] EtapasIniciales = new double[7][7];
+	double[][] EtapasIniciales = new double[100][100];
 	private int selectedEtapa = 0;
 	private View lastSelectedButton;
 	private int userId;
@@ -238,9 +238,6 @@ public class prueba_de_canotaje_activity extends AppCompatActivity {
 		canvas.drawText("FCLPM", startX + cellWidth * 5, startY, paint);
 		canvas.drawText("VELOCIDAD", startX + cellWidth * 6, startY, paint);
 
-		// Dibujar las líneas de la tabla
-
-		//paint.setStyle(Paint.Style.STROKE);
 		int numRows = maxiEtapes; // Número de filas, ajusta según tus datos
 		for (int i = 0; i <= numRows; i++) {
 			canvas.drawLine(startX, startY + i * cellHeight, startX + cellWidth * 7, startY + i * cellHeight, paint);
