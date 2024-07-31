@@ -145,7 +145,7 @@ public class prueba_de_ciclismo_activity extends AppCompatActivity {
 				}
 
 		} catch (NumberFormatException e) {
-			Toast.makeText(this, "Por favor, ingrese datos válidos " + EtapasIniciales[n][4], Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Por favor, ingrese datos válidos ", Toast.LENGTH_SHORT).show();
 			return n;
 		}
 		if (Aerobico){
