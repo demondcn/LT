@@ -182,14 +182,14 @@ public class prueba_de_bandasinfin_activity extends AppCompatActivity {
 		Paint paint = new Paint();
 
 		// Configuración del paint para el texto
-		paint.setColor(Color.BLACK);
+		paint.setColor(Color.RED);
 		paint.setTextSize(12);
 
 		// Dibujar el título
 		paint.setTextSize(16);
 		paint.setFakeBoldText(true);
 		canvas.drawText("TEST ESTÁNDAR DE LACTATO PARA CANOTAJE", 20, 30, paint);
-
+		paint.setColor(Color.BLACK);
 		// Dibujar los subtítulos y textos
 		paint.setTextSize(12);
 		paint.setFakeBoldText(false);
@@ -280,7 +280,9 @@ public class prueba_de_bandasinfin_activity extends AppCompatActivity {
 
 		// Cabecera de resultados
 		paint.setFakeBoldText(true);
+		paint.setColor(Color.RED);
 		canvas.drawText("RESULTADOS:", startX, startY, paint);
+		paint.setColor(Color.BLACK);
 		startY += cellHeight;
 		paint.setFakeBoldText(false);
 		canvas.drawText("UMBRAL LACTICO (VELOCIDAD Y RITMO A 4 MMOL/L):", startX, startY, paint);
@@ -325,7 +327,7 @@ public class prueba_de_bandasinfin_activity extends AppCompatActivity {
 
 
 		// Formatear V4 a dos decimales
-		double V4mphp = V4p*1.609;
+		double V4mphp = V4p/1.609;
 		double supRitmo = 1000/(V4p*1000/3600);
 		int RitmonKMMin = (int) (supRitmo/60);
 		double RitmonKMSp = supRitmo - (RitmonKMMin*60);
@@ -562,8 +564,12 @@ public class prueba_de_bandasinfin_activity extends AppCompatActivity {
 		paint.setColor(Color.RED);
 		canvas.drawText("COMENTARIOS:", 250, 300, paint);
 		paint.setColor(Color.BLACK);
-		canvas.drawText("Del periodo preparatorio a la etapa precompetitiva, en deportes de resistencia aerobia debe enfatizarse en entrenamientos continuo extensivo y cerca al umbral láctico para elevar la V4 o umbral láctico (aunque esto deprime la velocidad máxima de producción de lactato)", 250, 325, paint);
-		canvas.drawText("Del periodo preparatorio a la etapa precompetitiva, en deportes cuya competencia dura menos de 8 minutos debe enfatizarse en entrenamientos de sprints y de intervalos de elevada intensidad para elevar la velocidad máxima de producción de lactato (aunque esto disminuye la V4 o umbral láctico)", 250, 350, paint);
+		canvas.drawText("Del periodo preparatorio a la etapa precompetitiva, en deportes de resistencia aerobia debe enfatizarse en entrenamientos continuo", 10, 325, paint);
+		canvas.drawText("extensivo y cerca al umbral láctico para elevar la V4 o umbral láctico (aunque esto deprime la velocidad máxima de producción de", 10, 350, paint);
+		canvas.drawText("lactato)", 10, 375, paint);
+		canvas.drawText("Del periodo preparatorio a la etapa precompetitiva, en deportes cuya competencia dura menos de 8 minutos debe enfatizarse ", 10, 400, paint);
+		canvas.drawText("en entrenamientos de sprints y de intervalos de elevada intensidad para elevar la velocidad máxima de producción de lactato ", 10, 425, paint);
+		canvas.drawText("(aunque esto disminuye la V4 o umbral láctico)", 10, 450, paint);
 		// Finish the first page
 		pdfDocument.finishPage(page);
 

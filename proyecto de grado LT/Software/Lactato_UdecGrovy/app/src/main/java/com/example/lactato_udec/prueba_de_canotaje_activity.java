@@ -189,14 +189,14 @@ public class prueba_de_canotaje_activity extends AppCompatActivity {
 		Paint paint = new Paint();
 
 		// Configuración del paint para el texto
-		paint.setColor(Color.BLACK);
+		paint.setColor(Color.RED);
 		paint.setTextSize(12);
 
 		// Dibujar el título
 		paint.setTextSize(16);
 		paint.setFakeBoldText(true);
 		canvas.drawText("TEST ESTÁNDAR DE LACTATO PARA CANOTAJE", 20, 30, paint);
-
+		paint.setColor(Color.BLACK);
 		// Dibujar los subtítulos y textos
 		paint.setTextSize(12);
 		paint.setFakeBoldText(false);
@@ -273,7 +273,9 @@ public class prueba_de_canotaje_activity extends AppCompatActivity {
 
 		// Cabecera de resultados
 		paint.setFakeBoldText(true);
+		paint.setColor(Color.RED);
 		canvas.drawText("RESULTADOS:", startX, startY, paint);
+		paint.setColor(Color.BLACK);
 		startY += cellHeight;
 		paint.setFakeBoldText(false);
 		canvas.drawText("UMBRAL LACTICO (VELOCIDAD Y RITMO A 4 MMOL/L):", startX, startY, paint);

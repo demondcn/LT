@@ -182,14 +182,14 @@ public class prueba_de_ciclo_activity extends AppCompatActivity {
 		Paint paint = new Paint();
 
 		// Configuración del paint para el texto
-		paint.setColor(Color.BLACK);
+		paint.setColor(Color.RED);
 		paint.setTextSize(12);
 
 		// Dibujar el título
 		paint.setTextSize(16);
 		paint.setFakeBoldText(true);
 		canvas.drawText("TEST ESTÁNDAR DE LACTATO PARA CICLOERGEMETRO", 20, 30, paint);
-
+		paint.setColor(Color.BLACK);
 		// Dibujar los subtítulos y textos
 		paint.setTextSize(12);
 		paint.setFakeBoldText(false);
@@ -269,7 +269,9 @@ public class prueba_de_ciclo_activity extends AppCompatActivity {
 
 		// Cabecera de resultados
 		paint.setFakeBoldText(true);
+		paint.setColor(Color.RED);
 		canvas.drawText("RESULTADOS:", startX, startY, paint);
+		paint.setColor(Color.BLACK);
 		startY += cellHeight;
 		paint.setFakeBoldText(false);
 		canvas.drawText("UMBRAL LACTICO (VELOCIDAD Y RITMO A 4 MMOL/L):", startX, startY, paint);
@@ -284,7 +286,7 @@ public class prueba_de_ciclo_activity extends AppCompatActivity {
 		double P4p= PPre + (PPost-PPre)*( (4 - EtapasIniciales[pre4mol][3]) /(EtapasIniciales[Moment4mols][3]-EtapasIniciales[pre4mol][3]));
 		String P4 = df.format(P4p);
 
-		canvas.drawText("POTENCIA A 4 MMOL/L., WATTS " + P4, startX, startY, paint);
+		canvas.drawText("POTENCIA A 4 MMOL/L., WATTS: " + P4, startX, startY, paint);
 		startY += cellHeight;
 		String TextoResultante = (P4p < 160) ? "BAJA" : (P4p < 220) ? "PROMEDIO, NORMAL PARA FITNESS" : (P4p < 400) ? "ELEVADA, CICLISTA DE NIVEL MEDIO" : "MUY ELEVADA, CICLISTA PROFESIONAL";
 		startY += cellHeight;

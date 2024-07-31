@@ -276,7 +276,9 @@ public class prueba_de_ciclismo_activity extends AppCompatActivity {
 
 		// Cabecera de resultados
 		paint.setFakeBoldText(true);
+		paint.setColor(Color.RED);
 		canvas.drawText("RESULTADOS:", startX, startY, paint);
+		paint.setColor(Color.BLACK);
 		startY += cellHeight;
 		paint.setFakeBoldText(false);
 		canvas.drawText("UMBRAL LACTICO (VELOCIDAD Y RITMO A 4 MMOL/L):", startX, startY, paint);
