@@ -27,16 +27,17 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-            <ImageView
-                android:id="@+id/logo"
-                android:layout_width="233dp"
-                android:layout_height="302dp"
-                android:layout_gravity="center"
-                android:contentDescription="Logo"
-                android:src="@drawable/depi" />
-
                 <!-- Aquí añadimos el TextView para el título -->
-            <TextView
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="278dp"
+                    android:layout_height="172dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginLeft="22dp"
+                    android:contentDescription="Logo"
+                    android:src="@drawable/depi" />
+
+                <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
