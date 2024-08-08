@@ -83,77 +83,180 @@
 
 				</RelativeLayout>
 
-				<EditText
-					android:id="@+id/FCRPM"
+				<RelativeLayout
 					android:layout_width="350dp"
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
-					android:layout_marginTop="670dp"
-					android:background="@drawable/lavender_border4"
+					android:layout_marginTop="670dp">
 
-					android:drawablePadding="8dp"
-					android:hint="FCRPM"
-					android:inputType="numberDecimal"
-					android:padding="8dp" />
-				<EditText
-					android:id="@+id/FCLPM"
-					android:layout_width="350dp"
-					android:layout_height="60dp"
-					android:layout_marginLeft="20dp"
-					android:layout_marginTop="600dp"
-					android:background="@drawable/lavender_border4"
+					<EditText
+						android:id="@+id/FCRPM"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:background="@drawable/lavender_border4"
+						android:inputType="numberDecimal"
+						android:padding="8dp"
+						android:textAlignment="viewStart" />
 
-					android:drawablePadding="8dp"
-					android:hint="FCLPM"
-					android:inputType="numberDecimal"
-					android:padding="8dp" />
-				<EditText
-					android:id="@+id/Lactato"
-					android:layout_width="350dp"
-					android:layout_height="60dp"
-					android:layout_marginLeft="20dp"
-					android:layout_marginTop="530dp"
-					android:background="@drawable/lavender_border4"
+					<TextView
+						android:id="@+id/hintFCRPM"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:layout_alignParentRight="true"
+						android:layout_alignParentEnd="true"
+						android:gravity="center_vertical"
+						android:text="FCRPM"
+						android:paddingRight="8dp"
+						android:textColorHint="@android:color/darker_gray"
+						android:textSize="18sp"
+						android:visibility="visible" />
+				</RelativeLayout>
 
-					android:drawablePadding="8dp"
-					android:hint="Lactato"
-					android:inputType="numberDecimal"
-					android:padding="8dp" />
-				<EditText
-					android:id="@+id/Segundos"
+				<RelativeLayout
 					android:layout_width="350dp"
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
-					android:layout_marginTop="460dp"
-					android:background="@drawable/lavender_border4"
+					android:layout_marginTop="600dp">
 
-					android:drawablePadding="8dp"
-					android:hint="Segundos"
-					android:inputType="numberDecimal"
-					android:padding="8dp" />
-				<EditText
-					android:id="@+id/Minutos"
-					android:layout_width="350dp"
-					android:layout_height="60dp"
-					android:layout_marginLeft="20dp"
-					android:layout_marginTop="390dp"
-					android:background="@drawable/lavender_border4"
+					<EditText
+						android:id="@+id/FCLPM"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:background="@drawable/lavender_border4"
+						android:inputType="numberDecimal"
+						android:padding="8dp"
+						android:textAlignment="viewStart" />
 
-					android:drawablePadding="8dp"
-					android:hint="Minutos"
-					android:inputType="numberDecimal"
-					android:padding="8dp" />
-				<EditText
-					android:id="@+id/Resist_ped"
+					<TextView
+						android:id="@+id/hintFCLPM"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:layout_alignParentRight="true"
+						android:layout_alignParentEnd="true"
+						android:gravity="center_vertical"
+						android:text="FCLPM"
+						android:paddingRight="8dp"
+						android:textColorHint="@android:color/darker_gray"
+						android:textSize="18sp"
+						android:visibility="visible" />
+				</RelativeLayout>
+
+				<RelativeLayout
 					android:layout_width="350dp"
 					android:layout_height="60dp"
 					android:layout_marginLeft="20dp"
-					android:layout_marginTop="320dp"
-					android:background="@drawable/lavender_border4"
-					android:drawablePadding="8dp"
-					android:hint="RES.PED.,KP."
-					android:inputType="numberDecimal"
-					android:padding="8dp" />
+					android:layout_marginTop="530dp">
+
+					<EditText
+						android:id="@+id/Lactato"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:background="@drawable/lavender_border4"
+						android:inputType="numberDecimal"
+						android:padding="8dp"
+						android:textAlignment="viewStart" />
+
+					<TextView
+						android:id="@+id/hintLactato"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:layout_alignParentRight="true"
+						android:layout_alignParentEnd="true"
+						android:gravity="center_vertical"
+						android:text="Lactato"
+						android:paddingRight="8dp"
+						android:textColorHint="@android:color/darker_gray"
+						android:textSize="18sp"
+						android:visibility="visible" />
+				</RelativeLayout>
+
+				<RelativeLayout
+					android:layout_width="350dp"
+					android:layout_height="60dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="460dp">
+
+					<EditText
+						android:id="@+id/Segundos"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:background="@drawable/lavender_border4"
+						android:inputType="numberDecimal"
+						android:padding="8dp"
+						android:textAlignment="viewStart" />
+
+					<TextView
+						android:id="@+id/hintSegundos"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:layout_alignParentRight="true"
+						android:layout_alignParentEnd="true"
+						android:gravity="center_vertical"
+						android:text="Segundos"
+						android:paddingRight="8dp"
+						android:textColorHint="@android:color/darker_gray"
+						android:textSize="18sp"
+						android:visibility="visible" />
+				</RelativeLayout>
+
+				<RelativeLayout
+					android:layout_width="350dp"
+					android:layout_height="60dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="390dp">
+
+					<EditText
+						android:id="@+id/Minutos"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:background="@drawable/lavender_border4"
+						android:inputType="numberDecimal"
+						android:padding="8dp"
+						android:textAlignment="viewStart" />
+
+					<TextView
+						android:id="@+id/hintMinutos"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:layout_alignParentRight="true"
+						android:layout_alignParentEnd="true"
+						android:gravity="center_vertical"
+						android:text="Minutos"
+						android:paddingRight="8dp"
+						android:textColorHint="@android:color/darker_gray"
+						android:textSize="18sp"
+						android:visibility="visible" />
+				</RelativeLayout>
+
+				<RelativeLayout
+					android:layout_width="350dp"
+					android:layout_height="60dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="320dp">
+
+					<EditText
+						android:id="@+id/Resist_ped"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:background="@drawable/lavender_border4"
+						android:inputType="numberDecimal"
+						android:padding="8dp"
+						android:textAlignment="viewStart" />
+
+					<TextView
+						android:id="@+id/hintResist_ped"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:layout_alignParentRight="true"
+						android:layout_alignParentEnd="true"
+						android:gravity="center_vertical"
+						android:text="RES.PED.,KP."
+						android:paddingRight="8dp"
+						android:textColorHint="@android:color/darker_gray"
+						android:textSize="18sp"
+						android:visibility="visible" />
+				</RelativeLayout>
+
 
 
 

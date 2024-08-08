@@ -70,6 +70,9 @@ public class prueba_de_ciclismo_activity extends AppCompatActivity {
 	private boolean Anaerobica = false;
 	private boolean Aerobico = true;
 	private ScatterPlot scatterPlot;
+	//agregage de textViewHints
+	private TextView hintTextView;
+	private TextView hintTextViewFCLPM;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -107,7 +110,8 @@ public class prueba_de_ciclismo_activity extends AppCompatActivity {
 		guardar = (TextView) findViewById(R.id.guardar);
 		__ya_definiste_tus_datos_ = (TextView) findViewById(R.id.__ya_definiste_tus_datos_);
 		nota__el_calentamiento_no_puede_ser_de_mas_de_15_min__ni_incluyendo_piques = (TextView) findViewById(R.id.nota__el_calentamiento_no_puede_ser_de_mas_de_15_min__ni_incluyendo_piques);
-	
+		hintTextView = (TextView) findViewById(R.id.hintTextView);
+		hintTextViewFCLPM = (TextView) findViewById(R.id.hintTextViewFCLPM);
 		
 		//custom code goes here
 
@@ -152,6 +156,7 @@ public class prueba_de_ciclismo_activity extends AppCompatActivity {
 			// Guardar datos
 			m += 1;
 			Distancia.setVisibility(View.GONE);
+			hintTextView.setVisibility(View.GONE);
 			if (EtapasIniciales[n][3] < 4){
 				etapa_1_aerobica.setText("Etapa " + m + " Aerobica");
 				Aerobico = true;
@@ -159,7 +164,9 @@ public class prueba_de_ciclismo_activity extends AppCompatActivity {
 			else {
 				etapa_1_aerobica.setText("Etapa Anaerobica");
 				FCLPM.setHint("TRAMO PARA CONTROL DE RITMO, M.");
+				hintTextViewFCLPM.setVisibility(View.GONE);
 				Distancia.setVisibility(View.VISIBLE);
+				hintTextView.setVisibility(View.VISIBLE);
 				Anaerobica = true;
 				Aerobico = false;
 			}
