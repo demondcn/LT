@@ -1,9 +1,11 @@
 
 package com.example.lactato_udec;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import java.text.DecimalFormat;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -116,8 +118,21 @@ public class prueba_de_bandasinfin_activity extends AppCompatActivity {
 		guardar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				new AlertDialog.Builder(prueba_de_bandasinfin_activity.this)
+						.setTitle("Confirmación")
+						.setMessage("¿Está seguro de guardar estos datos?")
+						.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								// Ejecutar la función para guardar los datos
+								n = funcionEtapasIniciales(n);
 
-				n = funcionEtapasIniciales(n);
+								// Mostrar mensaje de confirmación
+								Toast.makeText(prueba_de_bandasinfin_activity.this, "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
+							}
+						})
+						.setNegativeButton("No", null) // No hacer nada si se presiona "No"
+						.show();
 			}
 		});
 	}
