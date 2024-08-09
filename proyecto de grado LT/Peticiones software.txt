@@ -5,20 +5,21 @@ Peticiones software:
 4.agregar que el hint se mantenga apenas se pongan los datos y se vean en la parte derecha
 6.Que haya una forma de decirle al usuario que el formato de datos que se pueda meter sea de . O de ,
 8/08/2024
-
-
-
+//v1
+    5.al darle al botón guardar que se pregunte si está seguro de guardar esos datos digitados y que haya una respuesta si o no
+    7.Que al darle al botón guardar aparezca un mensaje que diga que datos fueron guardados .
 //
-5.al darle al botón guardar que se pregunte si está seguro de guardar esos datos digitados y que haya una respuesta si o no
-7.Que al darle al botón guardar aparezca un mensaje que diga que datos fueron guardados .
+//v2
+    2.mejorar la seguridad del login
+    3.1 Rango de datos puestos en distancia dependiente de cada prueba
+    //solo en prueba de carrera de pista, preguntar el 9 para las demas pruebas
+    Prueba Carrera de Pista: 1600-2000
+    12.arreglar la bendita gráfica la unitaria y la combinada.
 //
-2.mejorar la seguridad del login
-3.Rango de datos puestos en distancia dependiente de cada prueba
-//solo en prueba de carrera de pista, preguntar el 9 para las demas pruebas
-Prueba Carrera de Pista: 1600-2000
-12.arreglar la bendita gráfica la unitaria y la combinada.
 9/08/2024
+3.2 Rango de datos puestos en distancia dependiente de cada prueba
 8.opcion para poder devolverse o una opción para (poder ver los datos ingresados y deje modificarlos hasta el momento)
 10/08/2024
 10.video tutorial como se hace una toma de lactato y como consiste ( de debe mostrar el vídeo en la parte abajo del layaut de seccion_Iniciada
 11. Agregar un layaout que muestre los protocolos que se deben de seguir para cada prueba y que luego de aparecer haya un botón para proceguir a dar los datos de la prueba.
+13. ahora hacer pruebas con la grafica y hacer que cada prueba tenga su grafica guardada

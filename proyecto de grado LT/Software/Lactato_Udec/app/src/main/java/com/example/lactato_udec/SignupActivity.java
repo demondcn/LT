@@ -37,12 +37,15 @@ public class SignupActivity extends AppCompatActivity {
         binding.SignupButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                String email = binding.SignupEmail.getText().toString();
-                String password = binding.SignupPassword.getText().toString();
-                String confirmPassword = binding.SignupConfirm.getText().toString();
-                if(email.equals("") || password.equals("") || confirmPassword.equals(""))
+                String email = binding.SignupEmail.getText().toString().trim();
+                String password = binding.SignupPassword.getText().toString().trim();
+                String confirmPassword = binding.SignupConfirm.getText().toString().trim();
+
+                if(email.equals("") || password.equals("") || confirmPassword.equals("")) {
                     Toast.makeText(SignupActivity.this, "Todos los campos son requeridos", Toast.LENGTH_SHORT).show();
-                else {
+                } else if (!email.contains("@") || !email.contains(".")) {
+                    Toast.makeText(SignupActivity.this, "Por favor, ingresa un correo electrónico válido", Toast.LENGTH_SHORT).show();
+                } else {
                     if(password.equals(confirmPassword)){
                         Boolean checkUserEmail = db.CheckUser(email);
                         if (!checkUserEmail){
@@ -53,20 +56,19 @@ public class SignupActivity extends AppCompatActivity {
                                 intent.putExtra("userId", userId);
                                 intent.putExtra("email", email);
                                 startActivity(intent);
-                            }
-                            else{
+                            } else {
                                 Toast.makeText(SignupActivity.this, "Ha ocurrido un error al guardar los datos", Toast.LENGTH_SHORT).show();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(SignupActivity.this, "El email ya existe, intenta con otro", Toast.LENGTH_SHORT).show();
                         }
-
-                    }else {
+                    } else {
                         Toast.makeText(SignupActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
+
 
         binding.loginRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override

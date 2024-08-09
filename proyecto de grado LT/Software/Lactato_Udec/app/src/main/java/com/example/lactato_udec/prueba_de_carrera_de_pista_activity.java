@@ -182,8 +182,13 @@ public class prueba_de_carrera_de_pista_activity extends AppCompatActivity {
 	}
 	public int funcionEtapasIniciales(int n) {
 		try {
+
 				if (m < 2) {
 					EtapasIniciales[n][0] = Double.parseDouble(Distancia.getText().toString());
+					if (EtapasIniciales[n][0] < 0 || EtapasIniciales[n][0] > 5000) {
+						Toast.makeText(this, "La distancia debe estar entre 0 y 2000 metros", Toast.LENGTH_SHORT).show();
+						return n;
+					}
 				} else {
 					EtapasIniciales[n][0] = EtapasIniciales[0][0];
 				}

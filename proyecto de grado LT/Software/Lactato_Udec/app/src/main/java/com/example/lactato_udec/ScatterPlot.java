@@ -48,19 +48,19 @@ public class ScatterPlot {
         // Dibujar los números de los ejes
         paint.setTextSize(20);
         paint.setStyle(Paint.Style.FILL);
-        float xMin = getMin(xData);
-        float xMax = getMax(xData);
-        float yMin = getMin(yData);
-        float yMax = getMax(yData);
-        for (int i = 0; i <= 10; i++) {
+        float xMin = 0;
+        float xMax = 14;
+        float yMin = 0;
+        float yMax = 14;
+        for (int i = 0; i <= 7; i++) { // 7 intervalos de 2 en 2 de 0 a 14
             // Números del eje X
-            float x = plotLeft + i * plotWidth / 10.0f;
-            String xLabel = String.format("%.1f", xMin + i * (xMax - xMin) / 10.0f);
-            canvas.drawText(xLabel, x - 20, plotBottom + 30, paint);
+            float x = plotLeft + i * plotWidth / 7.0f;
+            String xLabel = String.format("%.0f", xMin + i * 2);
+            canvas.drawText(xLabel, x - 10, plotBottom + 30, paint);
 
             // Números del eje Y
-            float y = plotBottom - i * plotHeight / 10.0f;
-            String yLabel = String.format("%.1f", yMin + i * (yMax - yMin) / 10.0f);
+            float y = plotBottom - i * plotHeight / 7.0f;
+            String yLabel = String.format("%.0f", yMin + i * 2);
             canvas.drawText(yLabel, plotLeft - 40, y + 10, paint);
         }
 
@@ -135,17 +135,19 @@ public class ScatterPlot {
 
         paint.setTextSize(20);
         paint.setStyle(Paint.Style.FILL);
-        float xMin = getMin(xData);
-        float xMax = getMax(xData);
-        float yMin = getMin(yData);
-        float yMax = getMax(yData);
-        for (int i = 0; i <= 10; i++) {
-            float x = plotLeft + i * plotWidth / 10.0f;
-            String xLabel = String.format("%.1f", xMin + i * (xMax - xMin) / 10.0f);
-            canvas.drawText(xLabel, x - 20, plotBottom + 30, paint);
+        float xMin = 0;
+        float xMax = 14;
+        float yMin = 0;
+        float yMax = 14;
+        for (int i = 0; i <= 7; i++) { // 7 intervalos de 2 en 2 de 0 a 14
+            // Números del eje X
+            float x = plotLeft + i * plotWidth / 7.0f;
+            String xLabel = String.format("%.0f", xMin + i * 2);
+            canvas.drawText(xLabel, x - 10, plotBottom + 30, paint);
 
-            float y = plotBottom - i * plotHeight / 10.0f;
-            String yLabel = String.format("%.1f", yMin + i * (yMax - yMin) / 10.0f);
+            // Números del eje Y
+            float y = plotBottom - i * plotHeight / 7.0f;
+            String yLabel = String.format("%.0f", yMin + i * 2);
             canvas.drawText(yLabel, plotLeft - 40, y + 10, paint);
         }
 
